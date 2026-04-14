@@ -13,12 +13,12 @@ const downloads = [
   },
   {
     title: "Classroom micro-lesson: coping skills (PDF)",
-    description: "15-minute facilitator notes for middle and high school settings.",
+    description: "15-minute facilitator notes for youth and community settings.",
     href: "#",
   },
   {
     title: "Community event checklist (PDF)",
-    description: "Planning prompts for school and neighborhood partners.",
+    description: "Planning prompts for neighborhood and community partners.",
     href: "#",
   },
 ];

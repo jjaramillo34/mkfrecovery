@@ -4,9 +4,9 @@ import { Section } from "@/components/ui/section";
 
 const programs = [
   {
-    title: "School & youth programs",
-    text: "Classroom workshops, student assemblies, and peer leadership support aligned to local needs.",
-    href: "/programs#schools",
+    title: "Community & youth programs",
+    text: "Workshops, gatherings, and peer leadership support aligned to local needs.",
+    href: "/programs#organizations",
   },
   {
     title: "Family & caregiver support",
@@ -25,7 +25,7 @@ export function ProgramsPreview() {
     <Section
       id="programs-preview"
       eyebrow="Programs"
-      title="Initiatives designed for real classrooms and real homes"
+      title="Initiatives designed for real communities and real homes"
       intro="Explore how MKF helps translate evidence-informed prevention into day-to-day practice—without turning people into experts overnight."
     >
       <div className="grid gap-6 md:grid-cols-3">

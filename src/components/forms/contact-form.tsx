@@ -73,7 +73,7 @@ export function ContactForm() {
             Select one
           </option>
           <option value="family">Parent or caregiver</option>
-          <option value="educator">Educator or school staff</option>
+          <option value="educator">Educator or organizational staff</option>
           <option value="youth">Young person</option>
           <option value="partner">Community partner</option>
           <option value="other">Other</option>

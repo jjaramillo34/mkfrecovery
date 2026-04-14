@@ -9,9 +9,9 @@ const blocks = [
     href: "/resources#families",
   },
   {
-    title: "For schools",
-    text: "Lesson sparks, staff training outlines, and referral pathways you can adapt to your district’s policies.",
-    href: "/resources#schools",
+    title: "For other organizations",
+    text: "Facilitator sparks, training outlines, and referral pathways you can adapt to your team’s policies.",
+    href: "/resources#organizations",
   },
   {
     title: "For youth",

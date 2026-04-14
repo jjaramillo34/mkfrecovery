@@ -47,7 +47,7 @@ export default function AboutPage() {
             </li>
             <li>
               <strong className="font-semibold text-mkf-fg">Measure responsibly.</strong> We track outcomes
-              that matter to schools and families—not vanity metrics.
+              that matter to families and partners—not vanity metrics.
             </li>
           </ol>
         </aside>

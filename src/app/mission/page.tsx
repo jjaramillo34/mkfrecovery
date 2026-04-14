@@ -22,8 +22,8 @@ export default function MissionPage() {
           <article className="border border-mkf-border bg-mkf-surface p-8">
             <h2 className="font-display text-2xl font-semibold text-mkf-ink">Mission</h2>
             <p className="mt-4 text-base leading-relaxed text-mkf-muted">
-              We advance hope-centered drug prevention by partnering with schools, families, and community
-              organizations to deliver credible education, practical tools, and compassionate navigation to
+              We advance hope-centered drug prevention by partnering with families, other organizations, and neighbors
+              to deliver credible education, practical tools, and compassionate navigation to
               help—without stigma.
             </p>
           </article>

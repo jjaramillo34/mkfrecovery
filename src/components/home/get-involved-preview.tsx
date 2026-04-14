@@ -6,7 +6,7 @@ export function GetInvolvedPreview() {
     <Section
       eyebrow="Get involved"
       title="Your time and voice can change a young person’s trajectory"
-      intro="Whether you mentor, organize events, or help a school pilot a workshop, MKF welcomes partners who believe prevention should be practical—and human."
+      intro="Whether you mentor, organize events, or help another organization host a workshop, MKF welcomes partners who believe prevention should be practical—and human."
     >
       <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <ul className="space-y-4 text-sm leading-relaxed text-mkf-muted">
@@ -15,7 +15,7 @@ export function GetInvolvedPreview() {
             family nights.
           </li>
           <li>
-            <strong className="text-mkf-fg">Partner:</strong> bring MKF programming into your school,
+            <strong className="text-mkf-fg">Partner:</strong> bring MKF programming into your organization,
             faith community, or nonprofit.
           </li>
           <li>

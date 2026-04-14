@@ -4,7 +4,7 @@ const quotes = [
   {
     quote:
       "MKF met our staff where we were—no jargon, no shame—just usable tools and follow-up we could actually implement.",
-    attribution: "High school counselor",
+    attribution: "Youth counselor",
   },
   {
     quote:
@@ -14,7 +14,7 @@ const quotes = [
 ];
 
 const partners = [
-  "Riverside United School District",
+  "Riverside United Community Network",
   "Coalition for Healthy Youth",
   "Northside Community Center",
   "State Prevention Partners Network",

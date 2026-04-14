@@ -6,8 +6,8 @@ const points = [
     text: "Open, age-appropriate dialogue reduces secrecy and builds trust—two of the strongest protective factors we can offer young people.",
   },
   {
-    title: "Schools are a front door",
-    text: "Educators see students every day. Practical training and classroom resources help staff respond with clarity and care.",
+    title: "Other organizations meet people where they are",
+    text: "Community partners see people every day. Practical training and shared resources help teams respond with clarity and care.",
   },
   {
     title: "Families deserve support",

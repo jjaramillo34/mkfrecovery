@@ -45,7 +45,7 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 900 }}>
           <p style={{ fontSize: 28, lineHeight: 1.35, margin: 0, color: "#1a2d36" }}>
-            Hope-centered prevention, education, and community support for families and schools.
+            Hope-centered prevention, education, and community support for families and other organizations.
           </p>
         </div>
         <p style={{ fontSize: 18, color: "#4a5c66", margin: 0 }}>{site.name}</p>

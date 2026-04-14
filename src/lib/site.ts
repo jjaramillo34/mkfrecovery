@@ -3,7 +3,7 @@ export const site = {
   shortName: "MKF",
   slogan: "Break the Chain",
   description:
-    "The Michael Kellermann Foundation advances community-centered drug prevention through education, partnership, and compassionate support for families, schools, and young people.",
+    "The Michael Kellermann Foundation advances community-centered drug prevention through education, partnership, and compassionate support for families, young people, and other organizations.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mkf.example.org",
   email: "hello@mkf.example.org",
   phone: "(555) 123-4567",

@@ -3,6 +3,7 @@ import { DM_Sans, Fraunces } from "next/font/google";
 import type { ReactNode } from "react";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Header />
           <main id="main-content">{children}</main>
           <Footer />
+          <ScrollToTop />
         </ThemeProvider>
       </body>
     </html>

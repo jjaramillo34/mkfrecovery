@@ -27,7 +27,7 @@ export default function GetInvolvedPage() {
             },
             {
               title: "Partner",
-              text: "Invite MKF into your school district, nonprofit, or coalition with shared goals.",
+              text: "Invite MKF into your nonprofit, coalition, or community with shared goals.",
             },
             {
               title: "Advocate",
@@ -51,7 +51,7 @@ export default function GetInvolvedPage() {
       <Section
         id="giving"
         title="Giving that sustains programs"
-        intro="Monthly donations help us plan trainings, keep materials free for under-resourced schools, and respond when partners need urgent support."
+        intro="Monthly donations help us plan trainings, keep materials free for under-resourced communities, and respond when partners need urgent support."
       >
         <Card className="max-w-2xl p-8">
           <p className="text-base leading-relaxed text-mkf-muted">

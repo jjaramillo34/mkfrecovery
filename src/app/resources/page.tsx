@@ -7,7 +7,7 @@ import { createMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Resources",
   description:
-    "Prevention resources for families, schools, and youth—conversation guides, classroom supports, and help-seeking pathways.",
+    "Prevention resources for families, other organizations, and youth—conversation guides, training supports, and help-seeking pathways.",
   path: "/resources",
 });
 
@@ -19,10 +19,10 @@ const hubs = [
     links: ["Conversation prompts (PDF)", "What to say when you’re worried (PDF)", "Local help checklist (PDF)"],
   },
   {
-    id: "schools",
-    title: "For schools & educators",
-    copy: "Practical supports for busy school communities—short lesson sparks, staff learning modules, and referral language that aligns with student support teams.",
-    links: ["Staff learning module outline (PDF)", "Classroom coping skills micro-lesson (PDF)", "Referral pathway template (PDF)"],
+    id: "organizations",
+    title: "For other organizations & teams",
+    copy: "Practical supports for nonprofits, coalitions, and community partners—facilitator sparks, learning modules, and referral language that aligns with your care teams.",
+    links: ["Learning module outline (PDF)", "Group coping skills micro-lesson (PDF)", "Referral pathway template (PDF)"],
   },
   {
     id: "youth",

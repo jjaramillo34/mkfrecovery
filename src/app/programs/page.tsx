@@ -6,18 +6,18 @@ import { createMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Programs",
   description:
-    "Explore MKF programs for schools, families, and community partners—education, training, and collaborative prevention initiatives.",
+    "Explore MKF programs for families, youth, and other organizations—education, training, and collaborative prevention initiatives.",
   path: "/programs",
 });
 
 const blocks = [
   {
-    id: "schools",
-    title: "School & youth programs",
-    body: "Interactive workshops, classroom supports, and student leadership development designed with educators—not imposed on them. Content is scaffolded by age and aligned to your district’s policies and referral systems.",
+    id: "organizations",
+    title: "Community & youth programs",
+    body: "Interactive workshops, youth leadership development, and supports designed with your team—not imposed on you. Content is scaffolded by age and aligned to your policies, culture, and referral systems.",
     bullets: [
-      "Staff training on early identification and compassionate response",
-      "Student-facing sessions focused on coping, belonging, and healthy norms",
+      "Training on early identification and compassionate response",
+      "Youth-facing sessions focused on coping, belonging, and healthy norms",
       "Materials that reinforce help-seeking as a strength",
     ],
   },

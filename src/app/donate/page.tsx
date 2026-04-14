@@ -19,7 +19,7 @@ export default function DonatePage() {
     <Section
       eyebrow="Donate"
       title="Invest in prevention that lasts beyond a single moment"
-      intro="Your contribution helps keep programs accessible and credible—especially for schools and neighborhoods that shouldn’t have to choose between basic needs and student wellbeing."
+      intro="Your contribution helps keep programs accessible and credible—especially for neighborhoods and communities that shouldn’t have to choose between basic needs and wellbeing."
     >
       <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-start">
         <div className="space-y-5 text-base leading-relaxed text-mkf-muted">
