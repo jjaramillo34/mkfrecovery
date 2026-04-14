@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-family-display: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --color-mkf-bg: var(--mkf-bg);
+  --color-mkf-fg: var(--mkf-fg);
+  --color-mkf-muted: var(--mkf-muted);
+  --color-mkf-border: var(--mkf-border);
+  --color-mkf-primary: var(--mkf-primary);
+  --color-mkf-primary-fg: var(--mkf-primary-fg);
+  --color-mkf-accent: var(--mkf-accent);
+  --color-mkf-accent-fg: var(--mkf-accent-fg);
+  --color-mkf-teal: var(--mkf-teal);
+  --color-mkf-ink: var(--mkf-ink);
+  --color-mkf-surface: var(--mkf-surface);
+  --color-mkf-hero-tint: var(--mkf-hero-tint);
+  --color-mkf-gold: var(--mkf-gold);
+}
+
+/* Fenix brand: navy #0C2C40 · green #7FA646 · gold #D99923 · orange #D95F18 */
+:root {
+  color-scheme: light;
+  --mkf-bg: #f4f6f2;
+  --mkf-fg: #1a2d36;
+  --mkf-muted: #4a5c66;
+  --mkf-border: #dce3db;
+  --mkf-primary: #0c2c40;
+  --mkf-primary-fg: #f7faf4;
+  --mkf-accent: #d95f18;
+  --mkf-accent-fg: #fffaf6;
+  --mkf-teal: #7fa646;
+  --mkf-ink: #0c2c40;
+  --mkf-surface: #ffffff;
+  --mkf-hero-tint: color-mix(
+    in oklab,
+    #7fa646 12%,
+    color-mix(in oklab, #d99923 8%, #f4f6f2)
+  );
+  --mkf-gold: #d99923;
+}
+
+
+.dark {
+  color-scheme: dark;
+  --mkf-bg: #0c2c40;
+  --mkf-fg: #eef1ed;
+  --mkf-muted: #a8b8c4;
+  --mkf-border: #1a4054;
+  --mkf-primary: #7fa646;
+  --mkf-primary-fg: #0c2c40;
+  --mkf-accent: #d95f18;
+  --mkf-accent-fg: #fff8f4;
+  --mkf-teal: #8fb85a;
+  --mkf-ink: #f4f7f4;
+  --mkf-surface: #102f42;
+  --mkf-hero-tint: color-mix(in oklab, #7fa646 16%, #0c2c40);
+  --mkf-gold: #e8a82e;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background: var(--mkf-bg);
+  color: var(--mkf-fg);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--mkf-teal) 35%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .motion-rise {
+    animation: mkf-rise 0.7s ease-out both;
+  }
+
+  @keyframes mkf-rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
