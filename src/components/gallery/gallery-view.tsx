@@ -8,6 +8,13 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
 import { galleryImageLoadProps } from "@/lib/gallery-image-props";
+import {
+  GALLERY_ASPECT_CLASS,
+  GALLERY_LAYOUT_GRID_CLASS,
+  DEFAULT_GALLERY_SETTINGS,
+  galleryEagerCount,
+  type PublicGallerySettings,
+} from "@/lib/gallery-settings-types";
 import type {
   PublicGalleryCategory,
   PublicGalleryEvent,
@@ -59,14 +66,29 @@ function GallerySkeleton() {
   );
 }
 
+const DEFAULT_INTRO =
+  "Browse photos from programs and events. Tap a filter to explore a campaign or category.";
+
+type GalleryFetchResult = {
+  items: PublicGalleryItem[];
+  total: number;
+  limit: number;
+};
+
 export function GalleryView({
   initialItems,
   initialEvents,
   initialCategories,
+  initialSettings,
+  initialTotal,
+  initialLimit,
 }: {
   initialItems?: PublicGalleryItem[];
   initialEvents?: PublicGalleryEvent[];
   initialCategories?: PublicGalleryCategory[];
+  initialSettings?: PublicGallerySettings;
+  initialTotal?: number;
+  initialLimit?: number;
 } = {}) {
   const router = useRouter();
   const pathname = usePathname();
@@ -76,6 +98,11 @@ export function GalleryView({
   const [categories, setCategories] = useState<PublicCategory[] | null>(initialCategories ?? null);
   const [items, setItems] = useState<GalleryItem[] | "loading" | "error">(
     initialItems ?? "loading",
+  );
+  const [total, setTotal] = useState(initialTotal ?? initialItems?.length ?? 0);
+  const [limit, setLimit] = useState(initialLimit ?? initialSettings?.maxImages ?? DEFAULT_GALLERY_SETTINGS.maxImages);
+  const [settings, setSettings] = useState<PublicGallerySettings>(
+    initialSettings ?? DEFAULT_GALLERY_SETTINGS,
   );
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -98,6 +125,22 @@ export function GalleryView({
   const clearFilters = useCallback(() => {
     router.push(pathname, { scroll: false });
   }, [router, pathname]);
+
+  useEffect(() => {
+    if (initialSettings) return;
+    let cancel = false;
+    fetch("/api/public/gallery/settings")
+      .then((r) => (r.ok ? r.json() : DEFAULT_GALLERY_SETTINGS))
+      .then((d: PublicGallerySettings) => {
+        if (!cancel) setSettings({ ...DEFAULT_GALLERY_SETTINGS, ...d });
+      })
+      .catch(() => {
+        if (!cancel) setSettings(DEFAULT_GALLERY_SETTINGS);
+      });
+    return () => {
+      cancel = true;
+    };
+  }, [initialSettings]);
 
   useEffect(() => {
     if (initialEvents) return;
@@ -142,6 +185,8 @@ export function GalleryView({
     let cancel = false;
     if (!eventId && !categoryId && initialItems) {
       setItems(initialItems);
+      if (initialTotal !== undefined) setTotal(initialTotal);
+      if (initialLimit !== undefined) setLimit(initialLimit);
       return () => {
         cancel = true;
       };
@@ -152,8 +197,12 @@ export function GalleryView({
     if (categoryId) u.searchParams.set("categoryId", categoryId);
     fetch(u.toString())
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("fetch"))))
-      .then((d: GalleryItem[]) => {
-        if (!cancel) setItems(Array.isArray(d) ? d : []);
+      .then((d: GalleryFetchResult) => {
+        if (!cancel) {
+          setItems(Array.isArray(d.items) ? d.items : []);
+          setTotal(typeof d.total === "number" ? d.total : 0);
+          setLimit(typeof d.limit === "number" ? d.limit : settings.maxImages);
+        }
       })
       .catch(() => {
         if (!cancel) setItems("error");
@@ -161,12 +210,15 @@ export function GalleryView({
     return () => {
       cancel = true;
     };
-  }, [eventId, categoryId, initialItems]);
+  }, [eventId, categoryId, initialItems, initialTotal, initialLimit, settings.maxImages]);
 
   const list = useMemo(() => (items === "loading" || items === "error" ? [] : items), [items]);
   const hasFilters = Boolean(eventId || categoryId);
   const activeEventLabel = events?.find((e) => e._id === eventId)?.title;
   const activeCategoryLabel = categories?.find((c) => c._id === categoryId)?.name;
+  const introText = settings.intro.trim() || DEFAULT_INTRO;
+  const eagerThrough = galleryEagerCount(settings.layout, list.length);
+  const isTruncated = total > list.length;
 
   const close = useCallback(() => setOpenIndex(null), []);
   const showPrev = useCallback(() => {
@@ -201,7 +253,7 @@ export function GalleryView({
         transition: { duration: 0.25 },
       };
 
-  const gridMotionFor = (index: number) => (index < 8 ? {} : gridMotion);
+  const gridMotionFor = (index: number) => (index < eagerThrough ? {} : gridMotion);
 
   return (
     <>
@@ -212,10 +264,10 @@ export function GalleryView({
         eyebrow="Community"
         eyebrowIcon={ImageIcon}
         title="Gallery"
-        intro="Browse photos from programs and events. Tap a filter to explore a campaign or category."
+        intro={introText}
       >
         <div className="mb-8 space-y-5">
-          {(events?.length ?? 0) > 0 && (
+          {settings.showEventFilters && (events?.length ?? 0) > 0 && (
             <div>
               <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-mkf-teal">
                 <CalendarDays className="h-3.5 w-3.5" aria-hidden />
@@ -238,7 +290,7 @@ export function GalleryView({
             </div>
           )}
 
-          {(categories?.length ?? 0) > 0 && (
+          {settings.showCategoryFilters && (categories?.length ?? 0) > 0 && (
             <div>
               <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-mkf-teal">
                 <LayoutGrid className="h-3.5 w-3.5" aria-hidden />
@@ -269,9 +321,21 @@ export function GalleryView({
                 "Could not load photos"
               ) : (
                 <>
+                  Showing{" "}
                   <span className="font-semibold text-mkf-ink">{list.length}</span>
-                  {list.length === 1 ? " photo" : " photos"}
+                  {total > list.length ? (
+                    <>
+                      {" "}
+                      of <span className="font-semibold text-mkf-ink">{total}</span>
+                    </>
+                  ) : null}
+                  {total === 1 ? " photo" : " photos"}
                   {hasFilters && " matching your filters"}
+                  {isTruncated && (
+                    <span className="block text-xs text-mkf-muted/90">
+                      Showing the first {limit} photos for faster loading.
+                    </span>
+                  )}
                 </>
               )}
             </p>
@@ -322,7 +386,7 @@ export function GalleryView({
         {list.length > 0 && (
           <motion.ul
             layout={!reduceMotion}
-            className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4"
+            className={GALLERY_LAYOUT_GRID_CLASS[settings.layout]}
           >
             <AnimatePresence mode="popLayout">
               {list.map((item, index) => {
@@ -331,10 +395,10 @@ export function GalleryView({
                     ? item.thumbnailUrl
                     : item.url;
                 return (
-                  <motion.li key={item._id} layout={!reduceMotion && index >= 8} {...gridMotionFor(index)}>
+                  <motion.li key={item._id} layout={!reduceMotion && index >= eagerThrough} {...gridMotionFor(index)}>
                     <button
                       type="button"
-                      className="group relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-mkf-border bg-mkf-bg text-left shadow-[0_2px_12px_rgba(15,23,42,0.06)] transition-shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mkf-accent hover:shadow-[0_8px_24px_rgba(15,23,42,0.12)] hover:ring-2 hover:ring-mkf-primary/20"
+                      className={`group relative ${GALLERY_ASPECT_CLASS[settings.aspectRatio]} w-full overflow-hidden rounded-xl border border-mkf-border bg-mkf-bg text-left shadow-[0_2px_12px_rgba(15,23,42,0.06)] transition-shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mkf-accent hover:shadow-[0_8px_24px_rgba(15,23,42,0.12)] hover:ring-2 hover:ring-mkf-primary/20`}
                       onClick={() => setOpenIndex(index)}
                       aria-label={`Open image: ${item.title}`}
                     >
@@ -344,7 +408,7 @@ export function GalleryView({
                         fill
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        {...galleryImageLoadProps(index, list.length)}
+                        {...galleryImageLoadProps(index, list.length, eagerThrough)}
                       />
                       <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[color-mix(in_oklab,var(--mkf-ink)_75%,transparent)] via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
                       <span className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-1 p-3 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">

@@ -99,3 +99,12 @@ export const reorderGalleryItemsSchema = z.object({
     .min(1)
     .max(500),
 });
+
+export const gallerySettingsSchema = z.object({
+  maxImages: z.number().int().min(1).max(200).optional(),
+  layout: z.enum(["compact", "standard", "wide"]).optional(),
+  aspectRatio: z.enum(["4/3", "1/1", "16/9"]).optional(),
+  showEventFilters: z.boolean().optional(),
+  showCategoryFilters: z.boolean().optional(),
+  intro: z.string().max(500).optional(),
+});

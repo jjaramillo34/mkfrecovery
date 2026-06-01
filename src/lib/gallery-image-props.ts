@@ -1,10 +1,10 @@
-/** First grid row(s): eager load to satisfy LCP (up to 2 rows on a 4-column layout). */
-export function galleryImageLoadProps(index: number, total: number) {
-  const eagerThrough = Math.min(total, 8);
+/** Eager load first row(s) for LCP; defaults to ~2 rows at 4 columns. */
+export function galleryImageLoadProps(index: number, total: number, eagerThrough = 8) {
+  const eagerCap = Math.min(total, eagerThrough);
   if (index === 0) {
     return { priority: true, loading: "eager" as const };
   }
-  if (index < eagerThrough) {
+  if (index < eagerCap) {
     return { loading: "eager" as const };
   }
   return { loading: "lazy" as const };

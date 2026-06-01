@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
+import { getGallerySettings } from "@/lib/gallery-settings";
 import { getDb } from "@/lib/mongodb";
 
 export const runtime = "nodejs";
@@ -15,6 +16,7 @@ export async function GET(request: Request) {
   const categoryId = searchParams.get("categoryId");
   const eventId = searchParams.get("eventId");
   const db = await getDb();
+  const settings = await getGallerySettings();
   const filter: Record<string, unknown> = {};
   if (categoryId) {
     if (!ObjectId.isValid(categoryId)) {
@@ -32,7 +34,12 @@ export async function GET(request: Request) {
     .collection("gallery_items")
     .find(filter)
     .sort({ order: 1, createdAt: 1 })
-    .limit(200)
+    .limit(settings.maxImages)
     .toArray();
-  return NextResponse.json(list.map((x) => serialize(x as never)));
+  const total = await db.collection("gallery_items").countDocuments(filter);
+  return NextResponse.json({
+    items: list.map((x) => serialize(x as never)),
+    total,
+    limit: settings.maxImages,
+  });
 }

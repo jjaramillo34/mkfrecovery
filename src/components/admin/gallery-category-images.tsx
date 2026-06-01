@@ -33,11 +33,15 @@ export function GalleryCategoryImages({ slug }: { slug: string }) {
   const [dropTargetId, setDropTargetId] = useState<string | null>(null);
   const [reordering, setReordering] = useState(false);
   const [eventOverride, setEventOverride] = useState("");
+  const [metaEdits, setMetaEdits] = useState<Record<string, { title: string; alt: string }>>({});
+  const [savingMetaId, setSavingMetaId] = useState<string | null>(null);
+  const [justUploadedIds, setJustUploadedIds] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   const reload = useCallback(() => {
     setErr(null);
-    void Promise.all([
+    return Promise.all([
       fetch("/api/admin/categories")
         .then((r) => r.json())
         .then((d: CategoryRow[]) => (Array.isArray(d) ? d : []))
@@ -114,6 +118,8 @@ export function GalleryCategoryImages({ slug }: { slug: string }) {
       if (!saveR.ok) {
         throw new Error("Uploaded to ImageKit, but could not save to the database.");
       }
+      const saved = (await saveR.json()) as { _id?: string };
+      return saved._id ?? "";
     },
     [],
   );
@@ -136,6 +142,7 @@ export function GalleryCategoryImages({ slug }: { slug: string }) {
           items && items.length > 0 ? Math.max(...items.map((i) => i.order)) + 1 : 0;
 
         let ok = 0;
+        const newIds: string[] = [];
         for (let i = 0; i < images.length; i++) {
           setUploadProgress(`Uploading ${i + 1} of ${images.length}…`);
           const file = images[i]!;
@@ -146,7 +153,7 @@ export function GalleryCategoryImages({ slug }: { slug: string }) {
             eventTitle,
           });
           const auth = await fetchImageKitAuth();
-          await uploadOneFile(
+          const id = await uploadOneFile(
             file,
             {
               categoryId: category._id,
@@ -157,10 +164,25 @@ export function GalleryCategoryImages({ slug }: { slug: string }) {
             },
             auth,
           );
+          if (id) newIds.push(id);
           ok += 1;
         }
-        setMsg(ok === 1 ? "Image added." : `Added ${ok} images.`);
-        reload();
+        setJustUploadedIds(newIds);
+        setMetaEdits((prev) => {
+          const next = { ...prev };
+          for (const id of newIds) delete next[id];
+          return next;
+        });
+        setMsg(
+          ok === 1
+            ? "Image added — edit title and alt below, then Save."
+            : `Added ${ok} images — review title and alt below.`,
+        );
+        await reload();
+        requestAnimationFrame(() => {
+          const el = listRef.current?.querySelector(`[data-gallery-id="${newIds[0]}"]`);
+          el?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
       } catch (x) {
         setErr(x instanceof Error ? x.message : "Upload failed");
       } finally {
@@ -233,6 +255,61 @@ export function GalleryCategoryImages({ slug }: { slug: string }) {
     }
   }
 
+  function getMeta(item: GalleryItemRow) {
+    return metaEdits[item._id] ?? { title: item.title, alt: item.alt };
+  }
+
+  function isMetaDirty(item: GalleryItemRow) {
+    const edit = metaEdits[item._id];
+    if (!edit) return false;
+    return edit.title.trim() !== item.title || edit.alt.trim() !== item.alt;
+  }
+
+  function setMetaField(id: string, item: GalleryItemRow, field: "title" | "alt", value: string) {
+    setMetaEdits((prev) => ({
+      ...prev,
+      [id]: {
+        title: field === "title" ? value : (prev[id]?.title ?? item.title),
+        alt: field === "alt" ? value : (prev[id]?.alt ?? item.alt),
+      },
+    }));
+  }
+
+  async function saveMeta(item: GalleryItemRow) {
+    const edit = getMeta(item);
+    const title = edit.title.trim();
+    const alt = edit.alt.trim();
+    if (!title || !alt) {
+      setErr("Title and alt text are required.");
+      return;
+    }
+    setSavingMetaId(item._id);
+    setErr(null);
+    setMsg(null);
+    try {
+      const r = await fetch("/api/admin/gallery", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ _id: item._id, title, alt }),
+      });
+      if (!r.ok) throw new Error("Could not save");
+      setItems((prev) =>
+        prev?.map((row) => (row._id === item._id ? { ...row, title, alt } : row)) ?? prev,
+      );
+      setMetaEdits((prev) => {
+        const next = { ...prev };
+        delete next[item._id];
+        return next;
+      });
+      setJustUploadedIds((prev) => prev.filter((id) => id !== item._id));
+      setMsg("Title and alt saved.");
+    } catch {
+      setErr("Could not save title and alt.");
+    } finally {
+      setSavingMetaId(null);
+    }
+  }
+
   if (category === undefined || items === null) {
     return <p className="text-mkf-muted">Loading…</p>;
   }
@@ -281,7 +358,7 @@ export function GalleryCategoryImages({ slug }: { slug: string }) {
       <Card className="p-5 sm:p-6">
         <h2 className="font-display text-lg font-semibold text-mkf-ink">Upload photos</h2>
         <p className="mt-1 text-sm text-mkf-muted">
-          Drop multiple images at once — they upload immediately with auto-generated titles and alt text.
+          Drop multiple images at once — they upload with auto-generated titles and alt text you can edit below.
         </p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <label className="sm:col-span-2">
@@ -352,21 +429,20 @@ export function GalleryCategoryImages({ slug }: { slug: string }) {
         {sortedItems.length === 0 ? (
           <p className="mt-2 text-sm text-mkf-muted">No photos in this category yet.</p>
         ) : (
-          <ul className="mt-4 space-y-3">
+          <ul ref={listRef} className="mt-4 space-y-3">
             {sortedItems.map((g, index) => {
               const evLabel = g.eventId ? events.find((e) => e._id === g.eventId)?.title ?? g.eventId : "—";
               const thumb = g.thumbnailUrl && g.thumbnailUrl.startsWith("http") ? g.thumbnailUrl : g.url;
               const isDragging = draggingId === g._id;
               const isDropTarget = dropTargetId === g._id;
+              const meta = getMeta(g);
+              const dirty = isMetaDirty(g);
+              const isNew = justUploadedIds.includes(g._id);
+              const saving = savingMetaId === g._id;
               return (
                 <li
                   key={g._id}
-                  draggable={!reordering}
-                  onDragStart={(e) => {
-                    e.dataTransfer.effectAllowed = "move";
-                    e.dataTransfer.setData("text/plain", g._id);
-                    setDraggingId(g._id);
-                  }}
+                  data-gallery-id={g._id}
                   onDragOver={(e) => {
                     e.preventDefault();
                     e.dataTransfer.dropEffect = "move";
@@ -380,35 +456,74 @@ export function GalleryCategoryImages({ slug }: { slug: string }) {
                     setDropTargetId(null);
                     if (activeId) void persistReorder(activeId, g._id);
                   }}
-                  onDragEnd={() => {
-                    setDraggingId(null);
-                    setDropTargetId(null);
-                  }}
                   className={`transition-opacity ${isDragging ? "opacity-40" : ""}`}
                 >
                   <Card
-                    className={`flex flex-col gap-4 p-4 sm:flex-row sm:items-center ${
+                    className={`flex flex-col gap-4 p-4 lg:flex-row lg:items-start ${
                       isDropTarget ? "ring-2 ring-mkf-primary ring-offset-2 ring-offset-mkf-bg" : ""
-                    }`}
+                    } ${isNew ? "ring-2 ring-mkf-teal/50 ring-offset-2 ring-offset-mkf-bg" : ""}`}
                   >
-                    <button
-                      type="button"
-                      className="flex shrink-0 cursor-grab touch-none items-center self-start text-mkf-muted active:cursor-grabbing sm:self-center"
-                      aria-label={`Drag to reorder ${g.title}`}
-                    >
-                      <GripVertical className="h-5 w-5" aria-hidden />
-                      <span className="ml-1 w-5 text-center text-xs font-medium tabular-nums">{index + 1}</span>
-                    </button>
-                    <div className="relative h-20 w-28 flex-shrink-0 overflow-hidden rounded-md border border-mkf-border bg-mkf-bg">
-                      <Image src={thumb} alt={g.alt} fill className="object-cover" sizes="120px" draggable={false} />
+                    <div className="flex shrink-0 items-start gap-2 sm:items-center">
+                      <div
+                        draggable={!reordering && !saving}
+                        onDragStart={(e) => {
+                          e.dataTransfer.effectAllowed = "move";
+                          e.dataTransfer.setData("text/plain", g._id);
+                          setDraggingId(g._id);
+                        }}
+                        onDragEnd={() => {
+                          setDraggingId(null);
+                          setDropTargetId(null);
+                        }}
+                        className="flex cursor-grab touch-none items-center text-mkf-muted active:cursor-grabbing"
+                        aria-label={`Drag to reorder ${g.title}`}
+                      >
+                        <GripVertical className="h-5 w-5" aria-hidden />
+                        <span className="ml-1 w-5 text-center text-xs font-medium tabular-nums">{index + 1}</span>
+                      </div>
+                      <div className="relative h-20 w-28 flex-shrink-0 overflow-hidden rounded-md border border-mkf-border bg-mkf-bg">
+                        <Image src={thumb} alt={meta.alt || g.alt} fill className="object-cover" sizes="120px" draggable={false} />
+                      </div>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-medium text-mkf-ink">{g.title}</p>
-                      <p className="mt-1 text-xs text-mkf-muted">Event: {evLabel}</p>
+                    <div className="min-w-0 flex-1 space-y-3">
+                      {isNew && (
+                        <p className="text-xs font-medium text-mkf-teal">New upload — edit title and alt, then Save.</p>
+                      )}
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <label className="block">
+                          <span className="text-xs font-medium text-mkf-muted">Title</span>
+                          <input
+                            className="mt-1 w-full rounded-md border border-mkf-border bg-mkf-bg px-3 py-2 text-sm"
+                            value={meta.title}
+                            onChange={(e) => setMetaField(g._id, g, "title", e.target.value)}
+                            disabled={saving}
+                          />
+                        </label>
+                        <label className="block">
+                          <span className="text-xs font-medium text-mkf-muted">Alt text</span>
+                          <input
+                            className="mt-1 w-full rounded-md border border-mkf-border bg-mkf-bg px-3 py-2 text-sm"
+                            value={meta.alt}
+                            onChange={(e) => setMetaField(g._id, g, "alt", e.target.value)}
+                            disabled={saving}
+                          />
+                        </label>
+                      </div>
+                      <p className="text-xs text-mkf-muted">Event: {evLabel}</p>
                     </div>
-                    <Button type="button" variant="secondary" onClick={() => void deleteItem(g._id)}>
-                      Remove
-                    </Button>
+                    <div className="flex flex-wrap items-center gap-2 lg:flex-col lg:items-stretch">
+                      <Button
+                        type="button"
+                        variant="primary"
+                        disabled={!dirty || saving}
+                        onClick={() => void saveMeta(g)}
+                      >
+                        {saving ? "Saving…" : "Save"}
+                      </Button>
+                      <Button type="button" variant="secondary" disabled={saving} onClick={() => void deleteItem(g._id)}>
+                        Remove
+                      </Button>
+                    </div>
                   </Card>
                 </li>
               );

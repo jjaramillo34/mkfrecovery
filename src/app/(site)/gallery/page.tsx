@@ -5,7 +5,7 @@ import { createMetadata } from "@/lib/metadata";
 import {
   fetchPublicGalleryCategories,
   fetchPublicGalleryEvents,
-  fetchPublicGalleryItems,
+  fetchPublicGalleryPage,
 } from "@/lib/public-gallery";
 
 export const metadata: Metadata = createMetadata({
@@ -24,8 +24,8 @@ function GalleryFallback() {
 }
 
 export default async function GalleryPage() {
-  const [initialItems, initialEvents, initialCategories] = await Promise.all([
-    fetchPublicGalleryItems(),
+  const [galleryPage, initialEvents, initialCategories] = await Promise.all([
+    fetchPublicGalleryPage(),
     fetchPublicGalleryEvents(),
     fetchPublicGalleryCategories(),
   ]);
@@ -33,7 +33,10 @@ export default async function GalleryPage() {
   return (
     <Suspense fallback={<GalleryFallback />}>
       <GalleryView
-        initialItems={initialItems}
+        initialItems={galleryPage.items}
+        initialTotal={galleryPage.total}
+        initialLimit={galleryPage.limit}
+        initialSettings={galleryPage.settings}
         initialEvents={initialEvents}
         initialCategories={initialCategories}
       />

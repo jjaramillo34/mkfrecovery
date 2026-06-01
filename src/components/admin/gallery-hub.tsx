@@ -49,6 +49,9 @@ export function GalleryHub() {
         <p className="text-sm text-mkf-muted">
           Choose a category to upload photos and set display order.
         </p>
+        <Button href="/admin/gallery/settings" variant="secondary">
+          Gallery settings
+        </Button>
         <Button href="/admin/gallery/categories" variant="secondary">
           Manage categories
         </Button>
