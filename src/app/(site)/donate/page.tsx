@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
 import { getActiveGivebutter } from "@/lib/donate-config";
 import { createMetadata } from "@/lib/metadata";
+import { fetchPublicGalleryItems } from "@/lib/public-gallery";
 import { site } from "@/lib/site";
 
 const glowPair = {
@@ -25,6 +26,14 @@ export default async function DonatePage() {
   const give = await getActiveGivebutter();
   const { givebutterCampaignUrl } = site;
   const givebutterUrl = give.givebutterUrl || givebutterCampaignUrl;
+  const galleryItems = await fetchPublicGalleryItems(
+    give.eventId ? { eventId: give.eventId } : undefined,
+  );
+  const initialFacilityImages = galleryItems.map((g) => ({
+    url: g.url,
+    alt: g.alt,
+    title: g.title,
+  }));
 
   return (
     <>
@@ -199,7 +208,7 @@ export default async function DonatePage() {
           </Card>
         </div>
 
-        <FacilityGallery eventId={give.eventId} />
+        <FacilityGallery eventId={give.eventId} initialImages={initialFacilityImages} />
       </Section>
     </>
   );

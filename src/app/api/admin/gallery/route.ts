@@ -14,11 +14,20 @@ function serialize(d: { _id: ObjectId; categoryId: ObjectId; eventId?: ObjectId 
   };
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   const db = await getDb();
+  const { searchParams } = new URL(request.url);
+  const categoryId = searchParams.get("categoryId");
+  const filter: Record<string, unknown> = {};
+  if (categoryId) {
+    if (!ObjectId.isValid(categoryId)) {
+      return NextResponse.json([]);
+    }
+    filter.categoryId = new ObjectId(categoryId);
+  }
   const list = await db
     .collection("gallery_items")
-    .find()
+    .find(filter)
     .sort({ order: 1, createdAt: 1 })
     .limit(500)
     .toArray();

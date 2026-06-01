@@ -1,6 +1,6 @@
 import { SmartLink, Text } from "@once-ui-system/core";
 import { AdminPage } from "@/components/admin/admin-page";
-import { GalleryManager } from "@/components/admin/gallery-manager";
+import { GalleryHub } from "@/components/admin/gallery-hub";
 
 export const metadata = {
   title: "Admin · Gallery",
@@ -9,20 +9,20 @@ export const metadata = {
 export default function AdminGalleryPage() {
   return (
     <AdminPage
-      title="Gallery (ImageKit)"
+      title="Gallery"
       description={
         <>
-          Create categories, upload images, and set display order. View the{" "}
-          <SmartLink href="/gallery" target="_blank">
+          Pick a category to upload and organize photos. Manage category names and filters under{" "}
+          <SmartLink href="/admin/gallery/categories">
             <Text as="span" variant="label-strong-s" onBackground="brand-medium">
-              public gallery
+              Gallery categories
             </Text>
           </SmartLink>
           .
         </>
       }
     >
-      <GalleryManager />
+      <GalleryHub />
     </AdminPage>
   );
 }

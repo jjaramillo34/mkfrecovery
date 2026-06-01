@@ -2,6 +2,7 @@ import type { IconType } from "react-icons";
 import {
   HiOutlineArrowRightOnRectangle,
   HiOutlineCalendarDays,
+  HiOutlineFolderOpen,
   HiOutlineHome,
   HiOutlinePhoto,
   HiOutlineShieldCheck,
@@ -14,6 +15,7 @@ export const adminIconLibrary: Record<string, IconType> = {
   home: HiOutlineHome,
   events: HiOutlineCalendarDays,
   gallery: HiOutlinePhoto,
+  categories: HiOutlineFolderOpen,
   users: HiOutlineUsers,
   security: HiOutlineShieldCheck,
   logout: HiOutlineArrowRightOnRectangle,

@@ -9,6 +9,7 @@ const nav: { href: string; label: string; icon: AdminIconName }[] = [
   { href: "/admin", label: "Dashboard", icon: "dashboard" },
   { href: "/admin/events", label: "Events & Givebutter", icon: "events" },
   { href: "/admin/gallery", label: "Gallery", icon: "gallery" },
+  { href: "/admin/gallery/categories", label: "Gallery categories", icon: "categories" },
   { href: "/admin/users", label: "Admin users", icon: "users" },
   { href: "/admin/security", label: "Security & MFA", icon: "security" },
 ];
@@ -80,8 +81,10 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           style={{ width: "15rem", flexShrink: 0 }}
         >
           {nav.map((item) => {
-            const active =
-              pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
+            const isActive =
+              item.href === "/admin/gallery"
+                ? pathname === "/admin/gallery" || /^\/admin\/gallery\/[^/]+$/.test(pathname)
+                : pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
             return (
               <SmartLink key={item.href} href={item.href} fillWidth>
                 <Row
@@ -91,16 +94,16 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                   gap="8"
                   radius="m"
                   vertical="center"
-                  background={active ? "brand-alpha-weak" : undefined}
+                  background={isActive ? "brand-alpha-weak" : undefined}
                 >
                   <Icon
                     name={item.icon}
                     size="s"
-                    onBackground={active ? "brand-strong" : "neutral-medium"}
+                    onBackground={isActive ? "brand-strong" : "neutral-medium"}
                   />
                   <Text
                     variant="label-strong-s"
-                    onBackground={active ? "brand-strong" : "neutral-medium"}
+                    onBackground={isActive ? "brand-strong" : "neutral-medium"}
                   >
                     {item.label}
                   </Text>

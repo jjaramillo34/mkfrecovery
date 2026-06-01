@@ -8,11 +8,16 @@ export async function GET() {
   try {
     getImageKitConfig();
     const ik = getImageKit();
-    const auth = ik.getAuthenticationParameters();
+    // Unix seconds, max ~30 min ahead (ImageKit requires < 1 hour).
+    const expire = Math.floor(Date.now() / 1000) + 60 * 30;
+    // Each upload needs a unique token (ImageKit rejects reused tokens).
+    const token = crypto.randomUUID();
+    const auth = ik.getAuthenticationParameters(token, expire);
     return NextResponse.json({
       publicKey: process.env.IMAGEKIT_PUBLIC_KEY!,
       urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT!,
       ...auth,
+      expire: Number(auth.expire),
     });
   } catch (e) {
     const message = e instanceof Error ? e.message : "ImageKit not configured";

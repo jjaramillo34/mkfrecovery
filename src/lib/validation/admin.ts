@@ -87,3 +87,15 @@ export const updateGalleryItemSchema = z.object({
   eventId: z.string().optional().nullable(),
   order: z.number().int().min(0).max(1_000_000).optional(),
 });
+
+export const reorderGalleryItemsSchema = z.object({
+  items: z
+    .array(
+      z.object({
+        _id: objectIdString,
+        order: z.number().int().min(0).max(1_000_000),
+      }),
+    )
+    .min(1)
+    .max(500),
+});

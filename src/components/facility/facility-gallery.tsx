@@ -2,17 +2,30 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+import { galleryImageLoadProps } from "@/lib/gallery-image-props";
 import { FACILITY_IMAGE_PATHS } from "@/lib/facility-images";
 
 export type CmsImage = { src: string; alt: string; title?: string };
 
 type RemoteRow = { url: string; alt: string; title?: string };
 
-export function FacilityGallery({ eventId }: { eventId?: string | null }) {
+export function FacilityGallery({
+  eventId,
+  initialImages,
+}: {
+  eventId?: string | null;
+  initialImages?: RemoteRow[];
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [remote, setRemote] = useState<RemoteRow[] | "loading" | "error">("loading");
+  const [remote, setRemote] = useState<RemoteRow[] | "loading" | "error">(
+    initialImages && initialImages.length > 0 ? initialImages : "loading",
+  );
 
   useEffect(() => {
+    if (initialImages && initialImages.length > 0 && !eventId) {
+      setRemote(initialImages);
+      return;
+    }
     let cancel = false;
     const u = new URL("/api/public/gallery", window.location.origin);
     if (eventId) u.searchParams.set("eventId", eventId);
@@ -32,7 +45,7 @@ export function FacilityGallery({ eventId }: { eventId?: string | null }) {
     return () => {
       cancel = true;
     };
-  }, [eventId]);
+  }, [eventId, initialImages]);
 
   const images: CmsImage[] = (() => {
     if (remote === "loading") return [];
@@ -98,9 +111,7 @@ export function FacilityGallery({ eventId }: { eventId?: string | null }) {
         </p>
       )}
       <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4">
-        {images.map((item, index) => {
-          const isRemote = item.src.startsWith("http");
-          return (
+        {images.map((item, index) => (
             <li key={item.src + index}>
               <button
                 type="button"
@@ -108,27 +119,17 @@ export function FacilityGallery({ eventId }: { eventId?: string | null }) {
                 onClick={() => setOpenIndex(index)}
                 aria-label={`Open image ${index + 1} in gallery`}
               >
-                {isRemote ? (
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  />
-                ) : (
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  />
-                )}
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  {...galleryImageLoadProps(index, images.length)}
+                />
               </button>
             </li>
-          );
-        })}
+          ))}
       </ul>
 
       {openIndex !== null && images[openIndex] && (
