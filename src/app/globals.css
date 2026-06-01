@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/*
+  Theme: blue & white. Reuses legacy token names site-wide:
+  - mkf-primary: navy (light) / soft blue (dark)
+  - mkf-teal:     bold brand blue (replaces old green in class names)
+  - mkf-gold:     sky / cyan second tone (replaces old gold; secondary buttons, gradient mid)
+  - mkf-accent:   CTA / primary action blue
+*/
+
 @theme {
   --font-family-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   --font-family-display: var(--font-fraunces), ui-serif, Georgia, serif;
@@ -19,44 +27,49 @@
   --color-mkf-gold: var(--mkf-gold);
 }
 
-/* Fenix brand: navy #0C2C40 · green #7FA646 · gold #D99923 · orange #D95F18 */
+/* Blue & white theme — four blues + neutrals: navy primary, brand blue, sky accent-mid, bright CTA */
 :root {
   color-scheme: light;
-  --mkf-bg: #f4f6f2;
-  --mkf-fg: #1a2d36;
-  --mkf-muted: #4a5c66;
-  --mkf-border: #dce3db;
-  --mkf-primary: #0c2c40;
-  --mkf-primary-fg: #f7faf4;
-  --mkf-accent: #d95f18;
-  --mkf-accent-fg: #fffaf6;
-  --mkf-teal: #7fa646;
-  --mkf-ink: #0c2c40;
+  /* Cool off-white + crisp white */
+  --mkf-bg: #f4f7fd;
   --mkf-surface: #ffffff;
+  --mkf-fg: #0f1c2e;
+  --mkf-muted: #4a5f7a;
+  --mkf-border: #d4e2f4;
+  --mkf-ink: #0a1f3d;
+  /* Deepest brand blue (headings, nav) */
+  --mkf-primary: #0c284a;
+  --mkf-primary-fg: #f5f8ff;
+  /* Primary CTA: saturated blue */
+  --mkf-accent: #1a6bff;
+  --mkf-accent-fg: #ffffff;
+  /* "Teal" token = strong brand blue (eyebrows, kicker, icons in gradients) */
+  --mkf-teal: #1d4ed8;
+  /* "Gold" token = sky / second blue in gradients and secondary buttons */
+  --mkf-gold: #0ea5e9;
   --mkf-hero-tint: color-mix(
     in oklab,
-    #7fa646 12%,
-    color-mix(in oklab, #d99923 8%, #f4f6f2)
+    var(--mkf-teal) 10%,
+    color-mix(in oklab, var(--mkf-gold) 7%, var(--mkf-bg))
   );
-  --mkf-gold: #d99923;
 }
-
 
 .dark {
   color-scheme: dark;
-  --mkf-bg: #0c2c40;
-  --mkf-fg: #eef1ed;
-  --mkf-muted: #a8b8c4;
-  --mkf-border: #1a4054;
-  --mkf-primary: #7fa646;
-  --mkf-primary-fg: #0c2c40;
-  --mkf-accent: #d95f18;
-  --mkf-accent-fg: #fff8f4;
-  --mkf-teal: #8fb85a;
-  --mkf-ink: #f4f7f4;
-  --mkf-surface: #102f42;
-  --mkf-hero-tint: color-mix(in oklab, #7fa646 16%, #0c2c40);
-  --mkf-gold: #e8a82e;
+  --mkf-bg: #060d18;
+  --mkf-surface: #0f1a2e;
+  --mkf-fg: #e8f1ff;
+  --mkf-muted: #8fa8c4;
+  --mkf-border: #1a3352;
+  --mkf-ink: #f0f6ff;
+  /* Lighter primary on dark (links, key UI) */
+  --mkf-primary: #6eb0ff;
+  --mkf-primary-fg: #040a14;
+  --mkf-accent: #3b8cff;
+  --mkf-accent-fg: #ffffff;
+  --mkf-teal: #4f9aff;
+  --mkf-gold: #22d3ee;
+  --mkf-hero-tint: color-mix(in oklab, var(--mkf-teal) 15%, var(--mkf-bg));
 }
 
 html {

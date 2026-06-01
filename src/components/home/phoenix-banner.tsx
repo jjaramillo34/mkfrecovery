@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView, useReducedMotion } from "framer-motion";
+import { FileText, HandCoins, Heart, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -22,15 +23,15 @@ const flightTransition = {
 };
 
 const TYPEWRITER_PHRASE =
-  "Prevention is hope in action—early, honest, and never alone.";
+  "Recovery is hope in motion—honest, supported, and never alone.";
 
 const ENCOURAGING_WORDS = [
   "Strength",
-  "Virtue",
+  "Sobriety",
   "Hope",
   "Courage",
   "Grace",
-  "Renewal",
+  "Recovery",
   "Resilience",
   "Peace",
   "Worth",
@@ -137,7 +138,7 @@ function FallingEncouragement({ reduceMotion }: { reduceMotion: boolean }) {
   );
 }
 
-function PreventionTypewriter({ phrase }: { phrase: string }) {
+function TaglineTypewriter({ phrase }: { phrase: string }) {
   const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLParagraphElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
@@ -213,8 +214,9 @@ export function PhoenixBanner() {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-4 pt-14 text-center sm:px-6 lg:px-8 lg:pt-16">
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-mkf-teal">
+      <div className="relative mx-auto max-w-7xl px-4 pt-14 text-center sm:px-6 lg:px-8 lg:pt-16">
+        <p className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-mkf-teal">
+          <Sparkles className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
           Welcome
         </p>
         <h1
@@ -226,7 +228,7 @@ export function PhoenixBanner() {
         <p className="mt-3 font-display text-xl font-semibold text-mkf-primary sm:text-2xl">{site.slogan}</p>
       </div>
 
-      <div className="relative mx-auto mt-10 grid w-full max-w-6xl gap-12 px-4 pb-16 sm:px-6 sm:pb-20 lg:mt-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-14 lg:px-8 lg:pb-24">
+      <div className="relative mx-auto mt-10 grid w-full max-w-7xl gap-12 px-4 pb-16 sm:px-6 sm:pb-20 lg:mt-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-14 lg:px-8 lg:pb-24">
         <motion.div
           className="relative mx-auto flex min-h-[min(26rem,52vh)] w-full max-w-sm flex-col justify-start lg:mx-0 lg:min-h-[28rem] lg:max-w-none"
           initial={
@@ -266,12 +268,13 @@ export function PhoenixBanner() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-mkf-teal">
-            Hope &amp; prevention
+          <p className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-mkf-teal lg:justify-start">
+            <Heart className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
+            Hope, recovery &amp; sobriety
           </p>
 
           <div className="mt-4">
-            <PreventionTypewriter phrase={TYPEWRITER_PHRASE} />
+            <TaglineTypewriter phrase={TYPEWRITER_PHRASE} />
           </div>
 
           <h2
@@ -282,24 +285,28 @@ export function PhoenixBanner() {
             <span className="text-mkf-primary">honest conversation</span>—and stays rooted in community.
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-mkf-muted lg:mx-0">
-            Like the phoenix, recovery reminds us that change is possible. Drug prevention is how we protect
-            that possibility—early education, compassion, and support so fewer families face crisis alone.
+            Like the phoenix, recovery reminds us that change is possible. Standing with people of any age
+            on the path             to sobriety and fuller life is how we make that real—connection, clinical and community support,
+            and groups that show up on the calendar so fewer people and families walk alone.
           </p>
           <p className="mx-auto mt-4 max-w-xl font-display text-xl font-semibold leading-snug text-mkf-ink lg:mx-0">
-            Break the chain before it tightens: teach, listen, and show up.
+            Break the cycle: name the need, ask for help, and keep showing up.
           </p>
 
           <div className="mt-9 flex flex-wrap justify-center gap-3 lg:justify-start">
-            <Button href="/donate" variant="primary">
+            <Button href="/donate" variant="primary" className="inline-flex">
+              <HandCoins className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
               Donate now
             </Button>
-            <Button href="/resources" variant="secondary">
-              Get help &amp; resources
+            <Button href="/programs#how-mkf-cares" variant="secondary" className="inline-flex">
+              <FileText className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+              Therapists, groups &amp; program lengths
             </Button>
             <Link
               href="#overview"
-              className="inline-flex items-center px-2 text-sm font-semibold text-mkf-primary underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mkf-primary"
+              className="inline-flex items-center gap-1 px-2 text-sm font-semibold text-mkf-primary underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mkf-primary"
             >
+              <Sparkles className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
               Learn more
             </Link>
           </div>

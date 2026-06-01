@@ -15,14 +15,14 @@ export default function AppleIcon() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(160deg, #0c2c40 0%, #102f42 50%, #0c2c40 100%)",
+          background: "linear-gradient(160deg, #0a1f3d 0%, #0f2d5c 50%, #0a1f3d 100%)",
           borderRadius: 36,
-          border: "6px solid #7fa646",
+          border: "6px solid #3b82f6",
         }}
       >
         <span
           style={{
-            color: "#f4f6f2",
+            color: "#f5f8ff",
             fontSize: 52,
             fontWeight: 800,
             fontFamily: "system-ui, sans-serif",
@@ -34,7 +34,7 @@ export default function AppleIcon() {
         <span
           style={{
             marginTop: 8,
-            color: "#7fa646",
+            color: "#60a5fa",
             fontSize: 14,
             fontWeight: 600,
             fontFamily: "system-ui, sans-serif",

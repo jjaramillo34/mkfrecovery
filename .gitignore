@@ -30,6 +30,8 @@ yarn-error.log*
 # env files
 .env*.local
 
+# MongoDB URI for production
+.env.production
 # typescript
 *.tsbuildinfo
 next-env.d.ts

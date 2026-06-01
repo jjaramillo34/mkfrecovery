@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Fraunces } from "next/font/google";
 import type { ReactNode } from "react";
-import { Footer } from "@/components/layout/footer";
-import { Header } from "@/components/layout/header";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
-import { ThemeProvider } from "@/components/providers/theme-provider";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -45,19 +42,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${dmSans.variable} ${fraunces.variable}`} suppressHydrationWarning>
-      <body className="min-h-dvh antialiased">
-        <ThemeProvider>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-mkf-primary focus:px-4 focus:py-2 focus:text-mkf-primary-fg"
-          >
-            Skip to main content
-          </a>
-          <Header />
-          <main id="main-content">{children}</main>
-          <Footer />
-          <ScrollToTop />
-        </ThemeProvider>
+      <body className="min-h-dvh antialiased" suppressHydrationWarning>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-mkf-primary focus:px-4 focus:py-2 focus:text-mkf-primary-fg"
+        >
+          Skip to main content
+        </a>
+        {children}
+        <ScrollToTop />
       </body>
     </html>
   );

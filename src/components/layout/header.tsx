@@ -1,5 +1,6 @@
 "use client";
 
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -62,12 +63,22 @@ export function Header() {
           <ThemeToggle />
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-md border border-mkf-border bg-mkf-surface px-3 py-2 text-sm font-semibold text-mkf-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mkf-primary"
+            className="inline-flex min-h-10 min-w-10 items-center justify-center gap-1.5 rounded-md border border-mkf-border bg-mkf-surface px-3 py-2 text-sm font-semibold text-mkf-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mkf-primary"
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? "Close" : "Menu"}
+            {open ? (
+              <>
+                <X className="h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+                <span>Close</span>
+              </>
+            ) : (
+              <>
+                <Menu className="h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+                <span>Menu</span>
+              </>
+            )}
           </button>
         </div>
       </Container>

@@ -1,0 +1,8 @@
+/* Align Once UI fonts with the site’s DM Sans / Fraunces loaded on <html>. */
+[data-admin-once] {
+  --font-heading: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-body: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-label: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-code: ui-monospace, monospace;
+  min-height: 100dvh;
+}

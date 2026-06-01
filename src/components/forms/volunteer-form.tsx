@@ -1,5 +1,6 @@
 "use client";
 
+import { Send } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -69,7 +70,8 @@ export function VolunteerForm() {
           placeholder="Weekdays, evenings, weekends — general range is fine"
         />
       </div>
-      <Button type="submit" variant="primary">
+      <Button type="submit" variant="primary" className="inline-flex">
+        <Send className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
         Submit interest
       </Button>
       {status === "sent" && (

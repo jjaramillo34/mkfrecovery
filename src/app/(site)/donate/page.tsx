@@ -1,0 +1,206 @@
+import type { Metadata } from "next";
+import { HandCoins, Heart, Hospital, Shield } from "lucide-react";
+import { FacilityGallery } from "@/components/facility/facility-gallery";
+import { DonateForm } from "@/components/forms/donate-form";
+import { MichaelMemorialSection } from "@/components/memorial/michael-memorial";
+import { Card } from "@/components/ui/card";
+import { Section } from "@/components/ui/section";
+import { getActiveGivebutter } from "@/lib/donate-config";
+import { createMetadata } from "@/lib/metadata";
+import { site } from "@/lib/site";
+
+const glowPair = {
+  a: "pointer-events-none absolute -right-5 -top-4 h-28 w-28 rounded-full bg-[color-mix(in_oklab,var(--mkf-gold)_16%,transparent)] opacity-50 blur-3xl",
+  b: "pointer-events-none absolute -bottom-3 -left-4 h-24 w-24 rounded-full bg-[color-mix(in_oklab,var(--mkf-teal)_10%,transparent)] opacity-40 blur-2xl",
+} as const;
+
+export const metadata: Metadata = createMetadata({
+  title: "Donate",
+  description:
+    "Support the Michael Kellermann Foundation with a one-time or monthly gift through our Givebutter checkout to strengthen recovery education, sobriety support, and community care.",
+  path: "/donate",
+});
+
+export default async function DonatePage() {
+  const give = await getActiveGivebutter();
+  const { givebutterCampaignUrl } = site;
+  const givebutterUrl = give.givebutterUrl || givebutterCampaignUrl;
+
+  return (
+    <>
+      <Section
+        id="donate"
+        className="scroll-mt-28 border-b border-mkf-border bg-mkf-hero-tint"
+        wideHeader
+        eyebrow="Donate"
+        eyebrowIcon={HandCoins}
+        title="Invest in recovery support that lasts beyond a single moment"
+        intro="Your contribution helps keep programs accessible and credible—especially for neighborhoods and communities that shouldn’t have to choose between basic needs and wellbeing on the path to sobriety and healing."
+      >
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-14">
+          <div className="space-y-8">
+            <article
+              className="relative overflow-hidden rounded-2xl border border-mkf-border bg-mkf-surface p-7 shadow-[0_1px_0_rgba(15,23,42,0.05),0_8px_28px_-6px_rgba(12,44,64,0.1)] sm:p-8 dark:shadow-[0_1px_0_rgba(0,0,0,0.2),0_8px_32px_-6px_rgba(0,0,0,0.35)]"
+              aria-labelledby="donate-why-givebutter"
+            >
+              <div className={glowPair.a} aria-hidden />
+              <div className={glowPair.b} aria-hidden />
+              <div className="relative">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="h-1 w-10 rounded-full bg-gradient-to-r from-mkf-teal via-mkf-gold to-mkf-accent sm:w-12"
+                    aria-hidden
+                  />
+                  <Heart
+                    className="h-4 w-4 text-mkf-gold sm:h-5 sm:w-5"
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-mkf-teal">How we accept gifts</p>
+                </div>
+                <h2
+                  id="donate-why-givebutter"
+                  className="mt-4 flex items-center gap-2.5 font-display text-2xl font-semibold tracking-tight text-mkf-ink sm:text-3xl"
+                >
+                  <Shield
+                    className="h-6 w-6 shrink-0 text-mkf-teal sm:h-7 sm:w-7"
+                    strokeWidth={1.5}
+                    aria-hidden="true"
+                  />
+                  Secure checkout with Givebutter
+                </h2>
+                <p className="mt-4 text-base leading-relaxed text-mkf-muted sm:text-lg sm:leading-relaxed">
+                  MKF processes online donations through{" "}
+                  <a
+                    href="https://givebutter.com"
+                    className="font-medium text-mkf-primary underline decoration-mkf-primary/30 underline-offset-2 hover:decoration-mkf-primary"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Givebutter
+                  </a>
+                  , a platform built for fundraisers and mission-driven teams. You will complete your payment
+                  on Givebutter&rsquo;s secure, hosted page—not on this site—so we never see or store your card
+                  information here. Givebutter sends email receipts, and you can use options like Apple Pay
+                  and Google Pay when your campaign supports them.
+                </p>
+              </div>
+            </article>
+
+            <div className="text-base leading-relaxed text-mkf-muted">
+              <p>
+                Donations back MKF&rsquo;s work to train staff and volunteers, develop family-facing education and
+                support materials, and help community partners with planning and evaluation for recovery and sobriety
+                outcomes. As the
+                foundation grows, we aim to publish a simple, readable summary of how gifts translate into impact.
+              </p>
+            </div>
+
+            <ul className="space-y-2.5 text-sm text-mkf-muted sm:text-base">
+              <li className="flex gap-2.5">
+                <span
+                  className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-mkf-gold"
+                  aria-hidden
+                />
+                <span>Community, workplace, and peer group programs, plus support for families</span>
+              </li>
+              <li className="flex gap-2.5">
+                <span
+                  className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-mkf-teal"
+                  aria-hidden
+                />
+                <span>Partner support that respects local context and real-world constraints</span>
+              </li>
+              <li className="flex gap-2.5">
+                <span
+                  className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-mkf-accent"
+                  aria-hidden
+                />
+                <span>Capacity to respond when under-resourced communities need training or help first</span>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <Card padded={false} className="overflow-hidden">
+              <div
+                className="h-0.5 w-full bg-gradient-to-r from-mkf-teal via-mkf-gold to-mkf-accent"
+                aria-hidden
+              />
+              <div className="relative p-6 sm:p-8">
+                <h3 className="font-display text-lg font-semibold text-mkf-ink sm:text-xl">Make your gift</h3>
+                <p className="mt-2 text-sm leading-relaxed text-mkf-muted">
+                  Choose an amount and how often you&rsquo;d like to help—then continue to Givebutter to pay
+                  securely. Fields below are a planning step only; the charge happens on Givebutter&rsquo;s
+                  site.
+                </p>
+                <div className="mt-6">
+                  <DonateForm givebutterUrl={givebutterUrl} eventLabel={give.eventTitle} />
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </Section>
+
+      <MichaelMemorialSection />
+
+      <Section
+        className="border-b border-mkf-border bg-mkf-surface"
+        wideHeader
+        eyebrow="Partnerships"
+        eyebrowIcon={Hospital}
+        title="Affiliated treatment & recovery pathways"
+        intro="The overview below describes the inpatient and clinical facilities we work with directly—alongside the broader community recovery and support programming MKF also provides."
+      >
+        <div className="grid gap-8 lg:grid-cols-2">
+          <Card>
+            <h3 className="font-display text-lg font-semibold text-mkf-ink">Facilities we partner with</h3>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-mkf-muted">
+              <li>
+                <span className="font-medium text-mkf-fg">The Recovery Team (TRT)</span> in Delray Beach, Florida
+              </li>
+              <li>Affiliated facilities in New York and New Jersey</li>
+            </ul>
+            <p className="mt-6 text-sm leading-relaxed text-mkf-muted">
+              The inpatient treatment centers we are affiliated with specialize in immediate placement for
+              individuals nationwide through the Michael Kellermann Foundation. They offer a wide range of
+              critical recovery services, including acute medical detoxification and residential care.
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-mkf-muted">
+              We prioritize accessible treatment with a streamlined intake process, 24/7 support, and a
+              community-based setting designed for rapid stabilization.
+            </p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-mkf-muted">
+              <li>24/7 withdrawal management</li>
+              <li>Programs from 2 weeks to 90 days</li>
+            </ul>
+          </Card>
+
+          <Card>
+            <h3 className="font-display text-lg font-semibold text-mkf-ink">Clinical scope & care team</h3>
+            <p className="mt-4 text-sm leading-relaxed text-mkf-muted">
+              We provide professional care for substance use cases. Most commonly:
+            </p>
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-mkf-muted">
+              <li>Alcohol</li>
+              <li>Opioids</li>
+              <li>Stimulants</li>
+              <li>Benzodiazepines</li>
+              <li>Polysubstance use</li>
+            </ul>
+            <p className="mt-6 text-sm leading-relaxed text-mkf-muted">
+              Related mental health issues, most commonly anxiety, depression, and bipolar disorder.
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-mkf-muted">
+              A full staff of medical professionals is available around the clock. Medical detox, residential
+              rehab, and outpatient programs are all available to MKF.
+            </p>
+          </Card>
+        </div>
+
+        <FacilityGallery eventId={give.eventId} />
+      </Section>
+    </>
+  );
+}

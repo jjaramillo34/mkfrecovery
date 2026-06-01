@@ -1,0 +1,162 @@
+import type { Metadata } from "next";
+import { type LucideIcon, BadgeCheck, Flame, Handshake, Heart, Scale, Target } from "lucide-react";
+import { MichaelMemorialSection } from "@/components/memorial/michael-memorial";
+import { Card } from "@/components/ui/card";
+import { Section } from "@/components/ui/section";
+import { createMetadata } from "@/lib/metadata";
+
+export const metadata: Metadata = createMetadata({
+  title: "Mission & Vision",
+  description:
+    "MKF’s mission and vision: compassionate support for drug recovery, sobriety, and healthier life, plus community partnership for people and families of all ages.",
+  path: "/mission",
+});
+
+const values: {
+  title: string;
+  text: string;
+  accent: "teal" | "gold" | "accent" | "primary";
+  icon: LucideIcon;
+}[] = [
+  {
+    title: "Integrity",
+    text: "We cite sources, admit limits, and correct course when new evidence emerges.",
+    accent: "teal",
+    icon: Scale,
+  },
+  {
+    title: "Compassion",
+    text: "We lead with empathy for people in active use, people in recovery, and everyone who shows up for them—any age, any chapter.",
+    accent: "gold",
+    icon: Heart,
+  },
+  {
+    title: "Courage",
+    text: "We name hard topics plainly—without relying on fear as a shortcut.",
+    accent: "accent",
+    icon: Flame,
+  },
+  {
+    title: "Partnership",
+    text: "We share ownership with communities; MKF is a collaborator, not a savior.",
+    accent: "primary",
+    icon: Handshake,
+  },
+];
+
+const valueTopAccent: Record<(typeof values)[number]["accent"], string> = {
+  teal: "border-t-2 border-t-mkf-teal",
+  gold: "border-t-2 border-t-mkf-gold",
+  accent: "border-t-2 border-t-mkf-accent",
+  primary: "border-t-2 border-t-mkf-primary",
+};
+
+export default function MissionPage() {
+  return (
+    <>
+      <Section
+        id="mission"
+        className="border-b border-mkf-border bg-mkf-hero-tint"
+        wideHeader
+        eyebrow="Mission & vision"
+        eyebrowIcon={Target}
+        title="Break the Chain—rooted in dignity, recovery, and new life"
+        intro="Our mission is to reduce harm and strengthen long-term recovery for people of all ages already facing substance use—by building education, peer and family support, and community connection, including in complex jobs, housing, and care situations."
+      >
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+          <article
+            className="relative overflow-hidden border border-mkf-border bg-mkf-surface p-8 shadow-[0_1px_0_rgba(15,23,42,0.05),0_10px_28px_-6px_rgba(12,44,64,0.12)] sm:p-10 dark:shadow-[0_1px_0_rgba(0,0,0,0.2),0_10px_32px_-6px_rgba(0,0,0,0.35)]"
+            aria-labelledby="mission-card-title"
+          >
+            <div
+              className="pointer-events-none absolute -right-4 top-0 h-24 w-24 rounded-full bg-[color-mix(in_oklab,var(--mkf-teal)_18%,transparent)] opacity-50 blur-2xl"
+              aria-hidden
+            />
+            <div className="relative">
+              <div className="flex items-center gap-3">
+                <span
+                  className="h-1 w-9 rounded-full bg-gradient-to-r from-mkf-teal to-mkf-gold"
+                  aria-hidden
+                />
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-mkf-teal">North star</p>
+              </div>
+              <h2
+                id="mission-card-title"
+                className="font-display mt-4 text-2xl font-semibold tracking-tight text-mkf-ink sm:text-3xl"
+              >
+                Mission
+              </h2>
+              <p className="mt-5 text-base leading-relaxed text-mkf-muted sm:text-lg sm:leading-relaxed">
+                We advance hope-centered recovery support by partnering with families, other organizations, and
+                neighbors to deliver credible education, practical tools, and compassionate navigation to
+                help—without stigma.
+              </p>
+            </div>
+          </article>
+
+          <article
+            className="relative overflow-hidden border border-mkf-border bg-mkf-surface p-8 shadow-[0_1px_0_rgba(15,23,42,0.05),0_10px_28px_-6px_rgba(12,44,64,0.12)] sm:p-10 dark:shadow-[0_1px_0_rgba(0,0,0,0.2),0_10px_32px_-6px_rgba(0,0,0,0.35)]"
+            aria-labelledby="vision-card-title"
+          >
+            <div
+              className="pointer-events-none absolute -bottom-4 -left-2 h-28 w-28 rounded-full bg-[color-mix(in_oklab,var(--mkf-accent)_14%,transparent)] opacity-45 blur-2xl"
+              aria-hidden
+            />
+            <div className="relative">
+              <div className="flex items-center gap-3">
+                <span
+                  className="h-1 w-9 rounded-full bg-gradient-to-r from-mkf-gold to-mkf-accent"
+                  aria-hidden
+                />
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-mkf-gold">Horizon</p>
+              </div>
+              <h2
+                id="vision-card-title"
+                className="font-display mt-4 text-2xl font-semibold tracking-tight text-mkf-ink sm:text-3xl"
+              >
+                Vision
+              </h2>
+              <p className="mt-5 text-base leading-relaxed text-mkf-muted sm:text-lg sm:leading-relaxed">
+                We envision communities where people in recovery are known, supported, and met with respect—where
+                shared responsibility for recovery, sobriety, and wellbeing is expressed through policy, practice, and everyday care.
+              </p>
+            </div>
+          </article>
+        </div>
+      </Section>
+
+      <MichaelMemorialSection />
+
+      <Section
+        className="bg-mkf-surface"
+        eyebrow="Values"
+        eyebrowIcon={BadgeCheck}
+        title="Values we try to practice out loud"
+        intro="These are not slogans on a wall—they shape who we hire, how we train, and how we respond when things get hard."
+      >
+        <ul className="m-0 grid list-none gap-6 p-0 md:grid-cols-2">
+          {values.map((v) => {
+            const I = v.icon;
+            return (
+              <li key={v.title}>
+                <Card className={`h-full ${valueTopAccent[v.accent]}`} padded={true}>
+                  <div className="flex items-start gap-2.5">
+                    <I
+                      className="h-5 w-5 shrink-0 text-mkf-primary"
+                      strokeWidth={1.75}
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <h3 className="font-display text-lg font-semibold text-mkf-ink">{v.title}</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-mkf-muted">{v.text}</p>
+                    </div>
+                  </div>
+                </Card>
+              </li>
+            );
+          })}
+        </ul>
+      </Section>
+    </>
+  );
+}

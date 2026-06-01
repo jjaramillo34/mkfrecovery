@@ -14,14 +14,14 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(145deg, #0c2c40 0%, #102f42 55%, #0c2c40 100%)",
+          background: "linear-gradient(145deg, #0a1f3d 0%, #0f2d5c 55%, #0a1f3d 100%)",
           borderRadius: 10,
-          border: "2px solid #7fa646",
+          border: "2px solid #3b82f6",
         }}
       >
         <span
           style={{
-            color: "#f4f6f2",
+            color: "#f5f8ff",
             fontSize: 15,
             fontWeight: 800,
             fontFamily: "system-ui, sans-serif",

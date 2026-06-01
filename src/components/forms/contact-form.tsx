@@ -1,5 +1,6 @@
 "use client";
 
+import { Send } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -74,7 +75,7 @@ export function ContactForm() {
           </option>
           <option value="family">Parent or caregiver</option>
           <option value="educator">Educator or organizational staff</option>
-          <option value="youth">Young person</option>
+          <option value="affected">Person in recovery or seeking help (any age)</option>
           <option value="partner">Community partner</option>
           <option value="other">Other</option>
         </select>
@@ -94,13 +95,14 @@ export function ContactForm() {
         />
       </div>
       <div className="flex flex-wrap items-center gap-4">
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" className="inline-flex">
+          <Send className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
           Send message
         </Button>
         {status === "sent" && (
           <p role="status" className="text-sm font-medium text-mkf-teal">
-            Thanks—this demo captured your message locally. Connect a backend or form service to deliver
-            it.
+            Thank you—this preview held your message in the browser. Connect a form backend or email service
+            to deliver real messages.
           </p>
         )}
       </div>

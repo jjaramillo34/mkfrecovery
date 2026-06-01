@@ -1,16 +1,23 @@
 "use client";
 
+import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const amounts = [25, 50, 100, 250];
 
-export function DonateForm() {
+export function DonateForm({
+  givebutterUrl,
+  eventLabel,
+}: {
+  givebutterUrl: string;
+  eventLabel?: string | null;
+}) {
   const id = useId();
   const [amount, setAmount] = useState<string>("50");
   const [custom, setCustom] = useState("");
-  const [status, setStatus] = useState<"idle" | "sent">("idle");
-
+  const canCheckout = givebutterUrl.length > 0;
   const effectiveAmount = custom ? custom : amount;
 
   return (
@@ -18,10 +25,15 @@ export function DonateForm() {
       className="space-y-8"
       onSubmit={(e) => {
         e.preventDefault();
-        setStatus("sent");
       }}
       noValidate
     >
+      {eventLabel ? (
+        <p className="rounded-lg border border-mkf-border/80 bg-mkf-surface/80 px-3 py-2 text-sm text-mkf-muted">
+          <span className="font-medium text-mkf-ink">Active campaign: </span>
+          {eventLabel}
+        </p>
+      ) : null}
       <fieldset>
         <legend className="text-sm font-medium text-mkf-fg">Choose an amount (USD)</legend>
         <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -91,49 +103,69 @@ export function DonateForm() {
         <div>
           <label htmlFor={`${id}-name`} className="text-sm font-medium text-mkf-fg">
             Full name
+            <span className="font-normal text-mkf-muted"> (optional here)</span>
           </label>
           <input
             id={`${id}-name`}
             name="name"
             autoComplete="name"
-            required
-            aria-required="true"
             className="mt-2 w-full rounded-md border border-mkf-border bg-mkf-bg px-3 py-2.5 text-sm text-mkf-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mkf-primary"
           />
         </div>
         <div>
           <label htmlFor={`${id}-email`} className="text-sm font-medium text-mkf-fg">
             Email
+            <span className="font-normal text-mkf-muted"> (optional here)</span>
           </label>
           <input
             id={`${id}-email`}
             name="email"
             type="email"
             autoComplete="email"
-            required
-            aria-required="true"
             className="mt-2 w-full rounded-md border border-mkf-border bg-mkf-bg px-3 py-2.5 text-sm text-mkf-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mkf-primary"
           />
         </div>
       </div>
 
       <p className="text-xs text-mkf-muted" aria-live="polite">
-        Selected support:{" "}
-        <strong className="text-mkf-fg">
-          ${effectiveAmount || "—"}
-        </strong>{" "}
-        (placeholder — connect to your payment processor).
+        You&rsquo;re planning to support MKF for{" "}
+        <strong className="text-mkf-fg">${effectiveAmount || "—"}</strong>—complete payment and billing on
+        Givebutter&rsquo;s page.
       </p>
 
-      <div className="flex flex-wrap items-center gap-4">
-        <Button type="submit" variant="primary">
-          Continue to payment
-        </Button>
-        {status === "sent" && (
-          <p role="status" className="text-sm font-medium text-mkf-teal">
-            Demo only—no charge was made. Integrate Stripe or your preferred nonprofit gateway.
-          </p>
+      <div className="space-y-3">
+        {canCheckout ? (
+          <Button
+            href={givebutterUrl}
+            newTab
+            variant="primary"
+            className="w-full justify-center"
+          >
+            <ExternalLink className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+            Donate on Givebutter
+          </Button>
+        ) : (
+          <Button
+            type="button"
+            variant="primary"
+            className="w-full justify-center"
+            disabled
+          >
+            <ExternalLink className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+            Donate on Givebutter
+          </Button>
         )}
+        <p className="text-center text-xs text-mkf-muted">
+          {canCheckout
+            ? "Opens Givebutter in a new tab. Card details stay with Givebutter, not on this site."
+            : (
+                <>
+                  We are connecting our live Givebutter page—check back soon, or reach out on{" "}
+                  <Link className="font-medium text-mkf-primary underline decoration-mkf-primary/30 underline-offset-2 hover:decoration-mkf-primary" href="/contact">Contact</Link> to give
+                  another way.
+                </>
+              )}
+        </p>
       </div>
     </form>
   );

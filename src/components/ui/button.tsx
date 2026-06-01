@@ -1,14 +1,14 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { MouseEventHandler, ReactNode } from "react";
 
 type Variant = "primary" | "secondary" | "ghost";
 
-/** Primary = orange #D95F18 · Secondary = gold #D99923 (fenix CTA pair). */
+/** Primary = accent blue · Secondary = sky blue w/ dark text for contrast. */
 const variants: Record<Variant, string> = {
   primary:
     "bg-mkf-accent text-mkf-accent-fg hover:opacity-[0.92] shadow-sm dark:hover:opacity-95",
   secondary:
-    "bg-mkf-gold text-[#0c2c40] shadow-sm hover:opacity-[0.92] dark:text-[#0c2c40]",
+    "bg-mkf-gold text-slate-900 shadow-sm hover:opacity-[0.92] dark:text-slate-900",
   ghost: "text-mkf-primary hover:underline underline-offset-4",
 };
 
@@ -28,6 +28,8 @@ export function Button({
   className = "",
   type = "button",
   disabled,
+  newTab,
+  onClick,
 }: {
   children: ReactNode;
   href?: string;
@@ -35,12 +37,20 @@ export function Button({
   className?: string;
   type?: "button" | "submit";
   disabled?: boolean;
+  /** When set with `href`, forwards to `Link` (e.g. `true` = `target="_blank"`, `rel="noopener noreferrer"`). */
+  newTab?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }) {
   const base = `inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-semibold transition-opacity duration-200 ${focusRing[variant]}`;
 
   if (href) {
     return (
-      <Link href={href} className={`${base} ${variants[variant]} ${className}`}>
+      <Link
+        href={href}
+        className={`${base} ${variants[variant]} ${className}`}
+        target={newTab ? "_blank" : undefined}
+        rel={newTab ? "noopener noreferrer" : undefined}
+      >
         {children}
       </Link>
     );
@@ -50,6 +60,7 @@ export function Button({
     <button
       type={type}
       disabled={disabled}
+      onClick={onClick}
       className={`${base} ${variants[variant]} disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
     >
       {children}

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { site } from "@/lib/site";
 
-/** Custom mark: shield + broken chain — positive prevention symbolism, no drug imagery. */
+/** Custom mark: shield + broken chain — hope and recovery symbolism, no drug imagery. */
 export function LogoMark({ className = "" }: { className?: string }) {
   return (
     <svg

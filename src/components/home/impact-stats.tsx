@@ -1,6 +1,7 @@
 "use client";
 
 import { useInView, useReducedMotion } from "framer-motion";
+import { GraduationCap, Handshake, type LucideIcon, UserRound } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const STATS = [
@@ -9,20 +10,28 @@ const STATS = [
     end: 12_400,
     suffix: "+",
     colorClass: "text-mkf-teal",
+    topBar: "from-mkf-teal via-mkf-gold/50 to-mkf-accent/50",
+    iconRing: "bg-mkf-teal/12 text-mkf-teal",
   },
   {
-    label: "Facilitators trained in prevention fundamentals",
+    label: "Facilitators trained in recovery-centered care",
     end: 860,
     suffix: "+",
     colorClass: "text-mkf-gold",
+    topBar: "from-mkf-gold via-mkf-teal/45 to-mkf-accent/45",
+    iconRing: "bg-mkf-gold/12 text-mkf-gold",
   },
   {
     label: "Community partners & other organizations",
     end: 54,
     suffix: "",
     colorClass: "text-mkf-accent",
+    topBar: "from-mkf-accent via-mkf-teal/40 to-mkf-gold/50",
+    iconRing: "bg-mkf-accent/10 text-mkf-accent",
   },
 ] as const;
+
+const statIcons: LucideIcon[] = [UserRound, GraduationCap, Handshake];
 
 function formatCount(n: number, end: number) {
   if (end >= 1000) return n.toLocaleString("en-US");
@@ -68,25 +77,54 @@ function AnimatedValue({
   }, [inView, end, reduceMotion]);
 
   return (
-    <dd
+    <div
       ref={ref}
-      className={`font-display mt-2 text-3xl font-semibold tracking-tight tabular-nums ${colorClass}`}
+      className={`font-display mt-1 text-3xl font-semibold tabular-nums sm:text-4xl ${colorClass} tracking-tight`}
     >
       {formatCount(value, end)}
       {suffix}
-    </dd>
+    </div>
   );
 }
 
 export function ImpactStats() {
   return (
-    <dl className="grid gap-8 sm:grid-cols-3">
-      {STATS.map((s) => (
-        <div key={s.label} className="border-l border-mkf-border pl-6">
-          <dt className="text-sm font-medium text-mkf-muted">{s.label}</dt>
-          <AnimatedValue end={s.end} suffix={s.suffix} colorClass={s.colorClass} />
-        </div>
-      ))}
+    <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+      {STATS.map((s, i) => {
+        const I = statIcons[i] ?? UserRound;
+        return (
+          <div
+            key={s.label}
+            className="relative overflow-hidden rounded-2xl border border-mkf-border/80 bg-mkf-surface/90 shadow-[0_1px_0_0_rgba(15,23,42,0.04),0_16px_40px_-20px_rgba(12,44,64,0.18)] dark:border-mkf-border/50 dark:bg-mkf-surface/85 dark:shadow-[0_1px_0_0_rgba(0,0,0,0.2),0_20px_45px_-22px_rgba(0,0,0,0.45)]"
+          >
+            <div
+              className={`h-0.5 w-full bg-gradient-to-r ${s.topBar}`}
+              aria-hidden
+            />
+            <div className="p-5 sm:p-6">
+              <dt>
+                <span className="flex items-start gap-3">
+                  <span
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${s.iconRing}`}
+                  >
+                    <I className="h-5 w-5 opacity-90" strokeWidth={1.75} aria-hidden="true" />
+                  </span>
+                  <span className="pt-1.5 text-sm font-medium leading-snug text-mkf-muted">
+                    {s.label}
+                  </span>
+                </span>
+              </dt>
+              <dd className="m-0 mt-1">
+                <AnimatedValue
+                  end={s.end}
+                  suffix={s.suffix}
+                  colorClass={s.colorClass}
+                />
+              </dd>
+            </div>
+          </div>
+        );
+      })}
     </dl>
   );
 }
