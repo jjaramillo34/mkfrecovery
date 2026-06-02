@@ -27,9 +27,12 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   if (pathname === "/admin/login" || pathname.startsWith("/admin/login/")) {
     return (
-      <Column as="div" data-admin-once background="page" fillWidth fillHeight horizontal="center" vertical="center">
+      <div
+        data-admin-once
+        className="flex min-h-dvh w-full items-center justify-center bg-[var(--page-background)] p-4 sm:p-6"
+      >
         {children}
-      </Column>
+      </div>
     );
   }
 

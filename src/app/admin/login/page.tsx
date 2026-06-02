@@ -72,77 +72,96 @@ function LoginForm() {
   }
 
   return (
-    <Card padding="24" maxWidth={28} fillWidth>
-      <Column gap="20" fillWidth>
-        <Column gap="8">
-          <Heading as="h1" variant="display-strong-xs">
-            Admin sign in
-          </Heading>
-          <Text variant="body-default-s" onBackground="neutral-weak">
-            Sign in with your admin account. MFA is required when enabled on your user.
-          </Text>
-        </Column>
-
-        {step === "credentials" ? (
-          <form style={{ width: "100%" }} onSubmit={onCredentials}>
-          <Column gap="16" fillWidth>
-            <Input
-              id="admin-email"
-              label="Email"
-              type="email"
-              autoComplete="username"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <PasswordInput
-              id="admin-pw"
-              label="Password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            {err && <Feedback variant="danger" description={err} />}
-            <Button type="submit" variant="primary" fillWidth disabled={pending}>
-              {pending ? "Checking…" : "Continue"}
-            </Button>
-          </Column>
-          </form>
-        ) : (
-          <form style={{ width: "100%" }} onSubmit={onMfa}>
-          <Column gap="16" fillWidth>
+    <div className="w-full max-w-[26rem]">
+      <Card padding="24" fillWidth className="shadow-[0_8px_30px_rgba(15,23,42,0.08)]">
+        <Column gap="20" fillWidth>
+          <Column gap="8" fillWidth>
+            <Heading as="h1" variant="display-strong-xs">
+              Admin sign in
+            </Heading>
             <Text variant="body-default-s" onBackground="neutral-weak">
-              Enter the 6-digit code from your authenticator app.
+              Sign in with your admin account. MFA is required when enabled on your user.
             </Text>
-            <Input
-              id="admin-totp"
-              label="Authenticator code"
-              inputMode="numeric"
-              autoComplete="one-time-code"
-              maxLength={6}
-              value={totp}
-              onChange={(e) => setTotp(e.target.value.replace(/\D/g, ""))}
-              required
-            />
-            {err && <Feedback variant="danger" description={err} />}
-            <Button type="submit" variant="primary" fillWidth disabled={pending}>
-              {pending ? "Signing in…" : "Sign in"}
-            </Button>
-            <Button type="button" variant="tertiary" fillWidth onClick={() => { setStep("credentials"); setTotp(""); setErr(null); }}>
-              ← Back
-            </Button>
           </Column>
-          </form>
-        )}
-      </Column>
-    </Card>
+
+          {step === "credentials" ? (
+            <form className="w-full" onSubmit={onCredentials}>
+              <Column gap="16" fillWidth>
+                <Input
+                  id="admin-email"
+                  label="Email"
+                  type="email"
+                  autoComplete="username"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <PasswordInput
+                  id="admin-pw"
+                  label="Password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                {err && <Feedback variant="danger" description={err} />}
+                <Button type="submit" variant="primary" fillWidth disabled={pending}>
+                  {pending ? "Checking…" : "Continue"}
+                </Button>
+              </Column>
+            </form>
+          ) : (
+            <form className="w-full" onSubmit={onMfa}>
+              <Column gap="16" fillWidth>
+                <Text variant="body-default-s" onBackground="neutral-weak">
+                  Enter the 6-digit code from your authenticator app.
+                </Text>
+                <Input
+                  id="admin-totp"
+                  label="Authenticator code"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  maxLength={6}
+                  value={totp}
+                  onChange={(e) => setTotp(e.target.value.replace(/\D/g, ""))}
+                  required
+                />
+                {err && <Feedback variant="danger" description={err} />}
+                <Button type="submit" variant="primary" fillWidth disabled={pending}>
+                  {pending ? "Signing in…" : "Sign in"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="tertiary"
+                  fillWidth
+                  onClick={() => {
+                    setStep("credentials");
+                    setTotp("");
+                    setErr(null);
+                  }}
+                >
+                  ← Back
+                </Button>
+              </Column>
+            </form>
+          )}
+        </Column>
+      </Card>
+    </div>
+  );
+}
+
+function LoginFallback() {
+  return (
+    <div className="w-full max-w-[26rem] text-center">
+      <Text onBackground="neutral-weak">Loading…</Text>
+    </div>
   );
 }
 
 export default function AdminLoginPage() {
   return (
-    <Suspense fallback={<Text onBackground="neutral-weak">Loading…</Text>}>
+    <Suspense fallback={<LoginFallback />}>
       <LoginForm />
     </Suspense>
   );

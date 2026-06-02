@@ -6,3 +6,8 @@
   --font-code: ui-monospace, monospace;
   min-height: 100dvh;
 }
+
+/* Login: keep form fields full width inside the centered card */
+[data-admin-once] form {
+  width: 100%;
+}
