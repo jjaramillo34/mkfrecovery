@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { type LucideIcon, BadgeCheck, Flame, Handshake, Heart, MapPin, Scale, ShieldCheck, Target, Users, EyeOpen, EyeClosed } from "lucide-react";
+import { type LucideIcon, BadgeCheck, Eye, Flame, Handshake, Heart, Scale, ShieldCheck, Target } from "lucide-react";
 import { MichaelMemorialSection } from "@/components/memorial/michael-memorial";
 import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
@@ -53,7 +53,7 @@ const values: {
     title: "Transparency",
     text: "We are transparent about our goals and our progress.",
     accent: "primary",
-    icon: EyeClosed,
+    icon: Eye,
   },
 ];
 

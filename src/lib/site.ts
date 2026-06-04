@@ -9,6 +9,8 @@ export const site = {
   givebutterCampaignUrl: (process.env.NEXT_PUBLIC_GIVEBUTTER_URL ?? "").trim(),
   email: "mkfrecovery@gmail.com",
   phone: "(347) 848-7930",
+  /** Mailing address on Contact and footer. Set NEXT_PUBLIC_SITE_ADDRESS to override. */
+  address: (process.env.NEXT_PUBLIC_SITE_ADDRESS ?? "Michael Kellermann Foundation\nNew York, NY").trim(),
   social: {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/",
