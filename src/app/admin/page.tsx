@@ -60,6 +60,21 @@ export default function AdminDashboard() {
         <Card padding="20" fillWidth style={{ flex: "1 1 16rem", maxWidth: "24rem" }}>
           <Column gap="12">
             <Heading as="h2" variant="heading-strong-s">
+              Forms
+            </Heading>
+            <Text variant="body-default-s" onBackground="neutral-weak">
+              Contact and volunteer submissions, delivered to contact@mkfrecovery.org via Resend.
+            </Text>
+            <SmartLink href="/admin/forms">
+              <Text variant="label-strong-s" onBackground="brand-medium">
+                View submissions →
+              </Text>
+            </SmartLink>
+          </Column>
+        </Card>
+        <Card padding="20" fillWidth style={{ flex: "1 1 16rem", maxWidth: "24rem" }}>
+          <Column gap="12">
+            <Heading as="h2" variant="heading-strong-s">
               Gallery
             </Heading>
             <Text variant="body-default-s" onBackground="neutral-weak">

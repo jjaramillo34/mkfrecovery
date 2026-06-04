@@ -10,6 +10,7 @@ const nav: { href: string; label: string; icon: AdminIconName }[] = [
   { href: "/admin/events", label: "Events & Givebutter", icon: "events" },
   { href: "/admin/testimonials", label: "Testimonials", icon: "testimonials" },
   { href: "/admin/newsletter", label: "Newsletter", icon: "newsletter" },
+  { href: "/admin/forms", label: "Forms", icon: "forms" },
   { href: "/admin/gallery", label: "Gallery", icon: "gallery" },
   { href: "/admin/gallery/categories", label: "Gallery categories", icon: "categories" },
   { href: "/admin/users", label: "Admin users", icon: "users" },

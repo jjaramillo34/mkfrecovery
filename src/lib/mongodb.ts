@@ -42,4 +42,6 @@ export async function ensureDbIndexesOn(db: Db) {
   await db.collection("testimonials").createIndex({ published: 1, order: 1 });
   await db.collection("newsletter_subscribers").createIndex({ email: 1 }, { unique: true });
   await db.collection("newsletter_subscribers").createIndex({ subscribed: 1, updatedAt: -1 });
+  await db.collection("form_submissions").createIndex({ type: 1, createdAt: -1 });
+  await db.collection("form_submissions").createIndex({ email: 1, createdAt: -1 });
 }
