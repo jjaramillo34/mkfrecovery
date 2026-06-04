@@ -9,7 +9,7 @@ export default function AdminDashboard() {
   return (
     <AdminPage
       title="Dashboard"
-      description="Manage events (Givebutter links), gallery images (ImageKit), and admin users with MFA."
+      description="Manage events (Givebutter links), recovery testimonials, newsletter subscribers, gallery images (ImageKit), and admin users with MFA."
     >
       <Row gap="16" fillWidth wrap>
         <Card padding="20" fillWidth style={{ flex: "1 1 16rem", maxWidth: "24rem" }}>
@@ -23,6 +23,36 @@ export default function AdminDashboard() {
             <SmartLink href="/admin/events">
               <Text variant="label-strong-s" onBackground="brand-medium">
                 Open events →
+              </Text>
+            </SmartLink>
+          </Column>
+        </Card>
+        <Card padding="20" fillWidth style={{ flex: "1 1 16rem", maxWidth: "24rem" }}>
+          <Column gap="12">
+            <Heading as="h2" variant="heading-strong-s">
+              Testimonials
+            </Heading>
+            <Text variant="body-default-s" onBackground="neutral-weak">
+              Add and publish recovery stories for the memorial carousel on public pages.
+            </Text>
+            <SmartLink href="/admin/testimonials">
+              <Text variant="label-strong-s" onBackground="brand-medium">
+                Manage testimonials →
+              </Text>
+            </SmartLink>
+          </Column>
+        </Card>
+        <Card padding="20" fillWidth style={{ flex: "1 1 16rem", maxWidth: "24rem" }}>
+          <Column gap="12">
+            <Heading as="h2" variant="heading-strong-s">
+              Newsletter
+            </Heading>
+            <Text variant="body-default-s" onBackground="neutral-weak">
+              View homepage signups, unsubscribe contacts, and export for Resend broadcasts.
+            </Text>
+            <SmartLink href="/admin/newsletter">
+              <Text variant="label-strong-s" onBackground="brand-medium">
+                View subscribers →
               </Text>
             </SmartLink>
           </Column>

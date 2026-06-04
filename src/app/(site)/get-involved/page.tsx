@@ -59,19 +59,21 @@ export default function GetInvolvedPage() {
         id="get-involved"
         className="border-b border-mkf-border bg-mkf-hero-tint"
         wideHeader
+        headerAlign="center"
         eyebrow="Get involved"
         eyebrowIcon={UserPlus}
         title="Bring your strengths—recovery is a community project"
         intro="Whether you can offer time, expertise, connections, or financial support, there is a meaningful role to play. We are especially looking for partners who want steady collaboration, not one-off heroics."
       >
+        <div className="mx-auto w-full max-w-6xl">
         <article
-          className="relative overflow-hidden scroll-mt-28 rounded-2xl border border-mkf-border bg-mkf-surface p-8 shadow-[0_1px_0_rgba(15,23,42,0.05),0_8px_28px_-6px_rgba(12,44,64,0.1)] sm:p-10 dark:shadow-[0_1px_0_rgba(0,0,0,0.2),0_8px_32px_-6px_rgba(0,0,0,0.35)]"
+          className="relative mx-auto overflow-hidden scroll-mt-28 rounded-2xl border border-mkf-border bg-mkf-surface p-8 text-center shadow-[0_1px_0_rgba(15,23,42,0.05),0_8px_28px_-6px_rgba(12,44,64,0.1)] sm:p-10 dark:shadow-[0_1px_0_rgba(0,0,0,0.2),0_8px_32px_-6px_rgba(0,0,0,0.35)]"
           aria-labelledby="pathways-heading"
         >
           <div className={glowPair.a} aria-hidden />
           <div className={glowPair.b} aria-hidden />
           <div className="relative">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center gap-3">
               <span
                 className="h-1 w-10 rounded-full bg-gradient-to-r from-mkf-teal via-mkf-gold to-mkf-accent sm:w-12"
                 aria-hidden
@@ -84,7 +86,7 @@ export default function GetInvolvedPage() {
             >
               Pick the door that matches how you want to help
             </h2>
-            <p className="mt-4 max-w-3xl text-base leading-relaxed text-mkf-muted sm:text-lg sm:leading-relaxed">
+            <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-mkf-muted sm:text-lg sm:leading-relaxed">
               Each path stays connected to the others—partners show up as volunteers, volunteers become advocates, and
               funders make programs possible. Start anywhere.
             </p>
@@ -139,19 +141,21 @@ export default function GetInvolvedPage() {
           );
         })}
         </div>
+        </div>
       </Section>
 
       <Section
         id="volunteer"
         className="scroll-mt-28 border-b border-mkf-border bg-mkf-surface"
         wideHeader
+        headerAlign="center"
         eyebrow="Volunteer"
         eyebrowIcon={ClipboardList}
         title="Volunteer interest form"
         intro="Tell us a little about yourself—we will follow up with realistic opportunities, not a generic mailing list."
       >
         <article
-          className="relative max-w-2xl overflow-hidden rounded-2xl border border-mkf-border bg-mkf-bg/80 p-6 shadow-[0_1px_0_rgba(15,23,42,0.04),0_6px_24px_-4px_rgba(12,44,64,0.08)] sm:p-8 dark:bg-mkf-surface/80 dark:shadow-[0_1px_0_rgba(0,0,0,0.15),0_6px_24px_-4px_rgba(0,0,0,0.2)]"
+          className="relative mx-auto max-w-2xl overflow-hidden rounded-2xl border border-mkf-border bg-mkf-bg/80 p-6 shadow-[0_1px_0_rgba(15,23,42,0.04),0_6px_24px_-4px_rgba(12,44,64,0.08)] sm:p-8 dark:bg-mkf-surface/80 dark:shadow-[0_1px_0_rgba(0,0,0,0.15),0_6px_24px_-4px_rgba(0,0,0,0.2)]"
           aria-label="Volunteer sign-up"
         >
           <div
@@ -163,7 +167,7 @@ export default function GetInvolvedPage() {
             aria-hidden
           />
           <div className="relative">
-            <div className="mb-6 flex items-center gap-2">
+            <div className="mb-6 flex items-center justify-center gap-2">
               <span className="h-1 w-9 rounded-full bg-gradient-to-r from-mkf-gold to-mkf-accent" aria-hidden />
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-mkf-gold">We read every message</span>
             </div>
@@ -176,12 +180,13 @@ export default function GetInvolvedPage() {
         id="giving"
         className="border-b border-mkf-border bg-mkf-hero-tint"
         wideHeader
+        headerAlign="center"
         eyebrow="Support"
         eyebrowIcon={Heart}
         title="Giving that sustains programs"
         intro="Monthly donations help us plan trainings, keep materials free for under-resourced communities, and respond when partners need urgent support."
       >
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <Card padded={false} className="relative flex flex-col overflow-hidden">
             <div
               className="h-0.5 w-full bg-gradient-to-r from-mkf-teal via-mkf-gold to-mkf-accent"
@@ -196,9 +201,11 @@ export default function GetInvolvedPage() {
               <p className="mt-4 text-sm text-mkf-muted">
                 Looking to donate now? You can go straight to our donate flow.
               </p>
-              <Button href="/donate" variant="primary" className="mt-5">
-                Donate
-              </Button>
+              <div className="mt-5 flex justify-center">
+                <Button href="/donate" variant="primary">
+                  Donate
+                </Button>
+              </div>
             </div>
           </Card>
         </div>

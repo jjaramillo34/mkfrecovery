@@ -8,6 +8,8 @@ import type { AdminIconName } from "@/resources/admin/icons";
 const nav: { href: string; label: string; icon: AdminIconName }[] = [
   { href: "/admin", label: "Dashboard", icon: "dashboard" },
   { href: "/admin/events", label: "Events & Givebutter", icon: "events" },
+  { href: "/admin/testimonials", label: "Testimonials", icon: "testimonials" },
+  { href: "/admin/newsletter", label: "Newsletter", icon: "newsletter" },
   { href: "/admin/gallery", label: "Gallery", icon: "gallery" },
   { href: "/admin/gallery/categories", label: "Gallery categories", icon: "categories" },
   { href: "/admin/users", label: "Admin users", icon: "users" },

@@ -16,10 +16,11 @@ const quotes = [
 ] as const;
 
 const partners = [
-  "Riverside United Community Network",
-  "Coalition for Community Recovery & Wellness",
-  "Northside Community Center",
-  "State Recovery & Community Partners",
+  // TODO: Add more partners from the setting
+  "Neighborhood Network",
+  "Community Center",
+  "Recovery Center",
+  "Recovery Network",
 ] as const;
 
 const quoteStripe = (i: number) => (i === 0 ? "from-mkf-teal to-mkf-gold" : "from-mkf-gold to-mkf-accent");
@@ -102,7 +103,7 @@ export function TestimonialsPartners() {
               </h3>
             </div>
             <p className="mt-1 text-sm text-mkf-muted">
-              Coalitions, centers, and networks we learn alongside.
+              Coalitions, centers, and networks we work alongside.
             </p>
             <ul className="mt-4 grid flex-1 gap-2.5 sm:mt-5 sm:grid-cols-2 sm:gap-3">
               {partners.map((p) => (

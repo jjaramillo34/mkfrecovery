@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { type LucideIcon, BadgeCheck, Flame, Handshake, Heart, Scale, Target } from "lucide-react";
+import Image from "next/image";
+import { type LucideIcon, BadgeCheck, Flame, Handshake, Heart, MapPin, Scale, ShieldCheck, Target, Users, EyeOpen, EyeClosed } from "lucide-react";
 import { MichaelMemorialSection } from "@/components/memorial/michael-memorial";
 import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
@@ -8,7 +9,7 @@ import { createMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Mission & Vision",
   description:
-    "MKF’s mission and vision: compassionate support for drug recovery, sobriety, and healthier life, plus community partnership for people and families of all ages.",
+    "MKF’s mission and vision: compassionate support for addiction recovery, sobriety, and healthier life, plus community partnership for people and families of all ages.",
   path: "/mission",
 });
 
@@ -42,6 +43,18 @@ const values: {
     accent: "primary",
     icon: Handshake,
   },
+  {
+    title: "Honesty",
+    text: "We are honest about our limitations and the challenges we face.",
+    accent: "accent",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Transparency",
+    text: "We are transparent about our goals and our progress.",
+    accent: "primary",
+    icon: EyeClosed,
+  },
 ];
 
 const valueTopAccent: Record<(typeof values)[number]["accent"], string> = {
@@ -61,9 +74,33 @@ export default function MissionPage() {
         eyebrow="Mission & vision"
         eyebrowIcon={Target}
         title="Break the Chain—rooted in dignity, recovery, and new life"
-        intro="Our mission is to reduce harm and strengthen long-term recovery for people of all ages already facing substance use—by building education, peer and family support, and community connection, including in complex jobs, housing, and care situations."
       >
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+        <article className="rounded-2xl border border-mkf-border bg-mkf-surface/90 px-6 py-8 shadow-sm sm:px-10 sm:py-10 lg:px-12 lg:py-12">
+          <div className="space-y-6 text-lg leading-relaxed text-mkf-fg sm:space-y-7 sm:text-xl sm:leading-relaxed lg:space-y-8 lg:text-[1.35rem] lg:leading-[1.75] xl:text-2xl xl:leading-relaxed">
+            <p>
+              The goal of the foundation is to make sure that addicts without sufficient funds or insurance are
+              still capable of getting into a paid facility with a higher rate of success in sobriety—and to be
+              sure they&apos;re not lost within the system of a free state, revolving-door clinic. They have the
+              option of an aftercare outpatient facility as well to continue the journey of sobriety and
+              implement sobriety as a way of life rather than a 30-day detox.
+            </p>
+            <p>
+              We pay for treatment, and any other cost associated with getting them to the facility. It&apos;s{" "}
+              <strong className="font-semibold text-mkf-ink">not</strong> a state-funded facility. It&apos;s a{" "}
+              <strong className="font-semibold text-mkf-ink">private</strong> facility in Florida with adequate
+              staff, doctors, therapists, and all the help and tools needed for sobriety. I work directly with
+              the addicts and the families. The success rate thus far has been beautiful. The facility is
+              beautiful, and the care is top notch.
+            </p>
+            <p>
+              I named the foundation after a friend of mine who passed away from drug abuse. Unfortunately he
+              wasn&apos;t able to get the proper care he needed, nor did he know he needed it. Had he gotten the
+              chance—the right help—he might still be here today.
+            </p>
+          </div>
+        </article>
+
+        <div className="mt-10 grid gap-8 lg:mt-12 lg:grid-cols-2 lg:gap-10">
           <article
             className="relative overflow-hidden border border-mkf-border bg-mkf-surface p-8 shadow-[0_1px_0_rgba(15,23,42,0.05),0_10px_28px_-6px_rgba(12,44,64,0.12)] sm:p-10 dark:shadow-[0_1px_0_rgba(0,0,0,0.2),0_10px_32px_-6px_rgba(0,0,0,0.35)]"
             aria-labelledby="mission-card-title"
@@ -86,7 +123,7 @@ export default function MissionPage() {
               >
                 Mission
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-mkf-muted sm:text-lg sm:leading-relaxed">
+              <p className="mt-5 text-base leading-relaxed text-mkf-muted sm:text-lg sm:leading-relaxed lg:text-xl lg:leading-relaxed">
                 We advance hope-centered recovery support by partnering with families, other organizations, and
                 neighbors to deliver credible education, practical tools, and compassionate navigation to
                 help—without stigma.
@@ -116,7 +153,7 @@ export default function MissionPage() {
               >
                 Vision
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-mkf-muted sm:text-lg sm:leading-relaxed">
+              <p className="mt-5 text-base leading-relaxed text-mkf-muted sm:text-lg sm:leading-relaxed lg:text-xl lg:leading-relaxed">
                 We envision communities where people in recovery are known, supported, and met with respect—where
                 shared responsibility for recovery, sobriety, and wellbeing is expressed through policy, practice, and everyday care.
               </p>

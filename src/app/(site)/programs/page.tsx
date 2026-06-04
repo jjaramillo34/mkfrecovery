@@ -34,7 +34,7 @@ const blocks: {
   {
     id: "organizations",
     title: "Community programs & groups",
-    body: "Recovery takes structure: facilitated groups, skills practice, and routines you can count on. MKF works with your team to design sessions for adults and people of all ages—grounded in clinical judgment where therapists are part of the plan, not a bolt-on afterthought.",
+    body: "Recovery takes structure: facilitated groups, skills practice, and routines you can count on. MKF works with your team to design programs for adults and people of all ages—grounded in practical, evidence-based care where therapists are part of the plan, not a bolt-on afterthought.",
     bullets: [
       "Therapist-informed group themes and process groups where appropriate",
       "Recurring meeting rhythms and peer accountability in community settings",

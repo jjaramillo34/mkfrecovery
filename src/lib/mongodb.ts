@@ -38,4 +38,8 @@ export async function ensureDbIndexesOn(db: Db) {
   await db.collection("categories").createIndex({ slug: 1 }, { unique: true, sparse: true });
   await db.collection("gallery_items").createIndex({ eventId: 1, categoryId: 1, order: 1 });
   await db.collection("admin_users").createIndex({ email: 1 }, { unique: true });
+  await db.collection("testimonials").createIndex({ slug: 1 }, { unique: true, sparse: true });
+  await db.collection("testimonials").createIndex({ published: 1, order: 1 });
+  await db.collection("newsletter_subscribers").createIndex({ email: 1 }, { unique: true });
+  await db.collection("newsletter_subscribers").createIndex({ subscribed: 1, updatedAt: -1 });
 }

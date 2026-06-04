@@ -3,13 +3,12 @@ export const site = {
   shortName: "MKF",
   slogan: "Break the Chain",
   description:
-    "The Michael Kellermann Foundation advances community-centered support for drug recovery, sobriety, and fuller life—through education, partnership, and compassionate care for people of all ages, families, and other organizations.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mkf.example.org",
+    "The Michael Kellermann Foundation advances community-centered support for addiction recovery, sobriety, and a fuller life—through education, partnership, and compassionate care for people of all ages, families, and other organizations.",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.NODE_ENV === "production" ? "https://mkfrecovery.org" : "http://localhost:3000"),
   /** Set to your public Givebutter campaign or form URL. Checkout and card data stay on Givebutter. */
   givebutterCampaignUrl: (process.env.NEXT_PUBLIC_GIVEBUTTER_URL ?? "").trim(),
-  email: "hello@mkf.example.org",
-  phone: "(555) 123-4567",
-  address: "Community Resource Center\n120 Hope Street, Suite 300\nYour City, ST 00000",
+  email: "mkfrecovery@gmail.com",
+  phone: "(347) 848-7930",
   social: {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/",

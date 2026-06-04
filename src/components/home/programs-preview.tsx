@@ -89,7 +89,7 @@ export function ProgramsPreview() {
               <h3 className="font-display text-base font-semibold text-mkf-ink sm:text-lg">Therapists, groups, routines</h3>
               <p className="mt-1 text-sm leading-relaxed text-mkf-muted sm:text-base">
                 We help assemble what people in substance use need most: <strong className="font-medium text-mkf-fg">clinical and therapist
-                touchpoints</strong> where the plan requires them, <strong className="font-medium text-mkf-fg">group work</strong> that shows up
+                touchpoints,</strong> <strong className="font-medium text-mkf-fg">group work</strong> that shows up
                 on the same days each week, and a <strong className="font-medium text-mkf-fg">care rhythm</strong> you can name without guesswork.
               </p>
             </div>

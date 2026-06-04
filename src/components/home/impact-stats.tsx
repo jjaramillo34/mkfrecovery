@@ -7,15 +7,15 @@ import { useEffect, useRef, useState } from "react";
 const STATS = [
   {
     label: "People reached annually (pilot regions)",
-    end: 12_400,
+    end: 100,
     suffix: "+",
     colorClass: "text-mkf-teal",
     topBar: "from-mkf-teal via-mkf-gold/50 to-mkf-accent/50",
     iconRing: "bg-mkf-teal/12 text-mkf-teal",
   },
   {
-    label: "Facilitators trained in recovery-centered care",
-    end: 860,
+    label: "Locations & programs",
+    end: 5,
     suffix: "+",
     colorClass: "text-mkf-gold",
     topBar: "from-mkf-gold via-mkf-teal/45 to-mkf-accent/45",
@@ -23,7 +23,7 @@ const STATS = [
   },
   {
     label: "Community partners & other organizations",
-    end: 54,
+    end: 10,
     suffix: "",
     colorClass: "text-mkf-accent",
     topBar: "from-mkf-accent via-mkf-teal/40 to-mkf-gold/50",

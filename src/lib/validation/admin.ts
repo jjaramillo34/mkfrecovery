@@ -108,3 +108,53 @@ export const gallerySettingsSchema = z.object({
   showCategoryFilters: z.boolean().optional(),
   intro: z.string().max(500).optional(),
 });
+
+const slugSchema = z
+  .string()
+  .min(1)
+  .max(120)
+  .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use lowercase letters, numbers, and hyphens");
+
+const paragraphSchema = z.string().min(1).max(5000);
+
+export const createTestimonialSchema = z.object({
+  slug: slugSchema,
+  heading: z.string().min(1).max(300),
+  paragraphs: z.array(paragraphSchema).min(1).max(10),
+  name: z.string().min(1).max(120),
+  location: z.string().min(1).max(120),
+  published: z.boolean().optional().default(false),
+  order: z.number().int().min(0).max(1_000_000).optional().default(0),
+});
+
+export const updateTestimonialSchema = z.object({
+  _id: objectIdString,
+  slug: slugSchema.optional(),
+  heading: z.string().min(1).max(300).optional(),
+  paragraphs: z.array(paragraphSchema).min(1).max(10).optional(),
+  name: z.string().min(1).max(120).optional(),
+  location: z.string().min(1).max(120).optional(),
+  published: z.boolean().optional(),
+  order: z.number().int().min(0).max(1_000_000).optional(),
+});
+
+export const reorderTestimonialsSchema = z.object({
+  items: z
+    .array(
+      z.object({
+        _id: objectIdString,
+        order: z.number().int().min(0).max(1_000_000),
+      }),
+    )
+    .min(1)
+    .max(100),
+});
+
+export const createNewsletterSubscriberSchema = z.object({
+  email: z.string().trim().email().max(320),
+});
+
+export const updateNewsletterSubscriberSchema = z.object({
+  _id: objectIdString,
+  subscribed: z.boolean(),
+});

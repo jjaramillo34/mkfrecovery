@@ -13,7 +13,7 @@ const points: {
 }[] = [
   {
     title: "Honest conversation opens the door",
-    text: "Naming use and relapse without shame makes room for help—at any age. We encourage open dialogue, peer connection, and clear next steps for people already facing drug problems and the people who love them.",
+    text: "Naming use and relapse without shame makes room for help—at any age. We encourage open dialogue, peer connection, and clear next steps for people already facing addiction problems and the people who love them.",
     icon: MessageCircle,
     topBar: "from-mkf-teal via-mkf-gold/50 to-mkf-accent/50",
     iconRing: "bg-mkf-teal/12 text-mkf-teal",
@@ -60,7 +60,7 @@ export function WhyRecovery() {
           eyebrow="Recovery & life"
           eyebrowIcon={Shield}
           title="Sobriety, healing, and community go together"
-          intro="Sustainable recovery is not built on fear—it is built on support, connection, and environments where asking for help is met with respect. MKF centers people of all ages who are already living with drug use, dependence, and the daily work of getting well—not a generic, before-the-problem awareness campaign."
+          intro="Sustainable recovery is not built on fear—it is built on support, connection, and environments where asking for help is met with respect. MKF centers people of all ages who are living with addiction, dependency, and the daily struggle to heal."
         />
 
         <ul className="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">

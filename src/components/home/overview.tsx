@@ -16,15 +16,15 @@ export function Overview() {
       <div className="grid gap-8 sm:gap-10 lg:grid-cols-2 lg:items-start lg:gap-12 xl:gap-14">
         <div className="space-y-4 text-base leading-relaxed text-mkf-muted md:text-[1.05rem] md:leading-relaxed">
           <p className="text-balance text-lg font-medium text-mkf-fg sm:text-xl sm:leading-snug">
-            The Michael Kellermann Foundation (MKF) is a nonprofit organization dedicated to drug recovery,
+            The Michael Kellermann Foundation (MKF) is a nonprofit organization dedicated to addiction recovery,
             sobriety, and community-based support for people of all ages. We help people who are already
-            in the work of active use, treatment, and recovery take the next right step—whether that
+            in the work of active use, treatment, and recovery take the next step, whether that
             means finding care, partnering with other organizations, or volunteering time and skills.
           </p>
           <p>
-            MKF was founded to honor a simple belief: people heal best when support is hopeful, honest,
+            MKF was founded to honor a simple belief: people heal best when support is structured, honest,
             and deeply connected to community. We focus on building skills, dignity, and connection—not
-            fear—to help people of all ages, families, and support networks build a healthier life in recovery
+            fear—to help people of all ages, families, and support networks, build a healthier life in recovery
             and know where to turn when life gets complicated.
           </p>
           <p>

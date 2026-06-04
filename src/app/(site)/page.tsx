@@ -14,7 +14,7 @@ import { createMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createMetadata({
   title: "Home",
   description:
-    "The Michael Kellermann Foundation advances drug recovery, sobriety, and life for people of all ages already living with substance use—through education, partnership, and support for families, peers, and other organizations.",
+    "The Michael Kellermann Foundation advances addiction recovery, sobriety, and life for people of all ages already living with substance use—through education, partnership, and support for families, peers, and other organizations.",
   path: "/",
 });
 
