@@ -15,21 +15,14 @@ export function Overview() {
     >
       <div className="grid gap-8 sm:gap-10 lg:grid-cols-2 lg:items-start lg:gap-12 xl:gap-14">
         <div className="space-y-4 text-base leading-relaxed text-mkf-muted md:text-[1.05rem] md:leading-relaxed">
-          <p className="text-balance text-lg font-medium text-mkf-fg sm:text-xl sm:leading-snug">
-            The Michael Kellermann Foundation (MKF) is a nonprofit organization dedicated to addiction recovery,
-            sobriety, and community-based support for people of all ages. We help people who are already
-            in the work of active use, treatment, and recovery take the next step, whether that
-            means finding care, partnering with other organizations, or volunteering time and skills.
+          <p className="text-pretty text-balance text-lg font-medium text-mkf-fg sm:text-xl sm:leading-snug">
+            The goal of the foundation is to make sure that addicts without sufficient funds or insurance are still capable of getting into a paid facility with a higher rate of success in sobriety—and to be sure they're not lost within the system of a free state, revolving-door clinic. They have the option of an aftercare outpatient facility as well to continue the journey of sobriety and implement sobriety as a way of life rather than a 30-day detox.
           </p>
           <p>
-            MKF was founded to honor a simple belief: people heal best when support is structured, honest,
-            and deeply connected to community. We focus on building skills, dignity, and connection—not
-            fear—to help people of all ages, families, and support networks, build a healthier life in recovery
-            and know where to turn when life gets complicated.
+            We pay for treatment, and any other cost associated with getting them to the facility. It's not a state-funded facility. It's a private facility in Florida with adequate staff, doctors, therapists, and all the help and tools needed for sobriety. I work directly with the addicts and the families. The success rate thus far has been beautiful. The facility is beautiful, and the care is top notch.
           </p>
           <p>
-            Our team collaborates with counselors, peer leaders, and family-serving organizations to deliver
-            programming, training, and materials that respect lived experience and cultural context.
+            I named the foundation after a friend of mine who passed away from drug abuse. Unfortunately he wasn't able to get the proper care he needed, nor did he know he needed it. Had he gotten the chance—the right help—he might still be here today.
           </p>
         </div>
 
