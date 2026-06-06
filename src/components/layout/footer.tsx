@@ -115,9 +115,29 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-mkf-border/80 pt-8 sm:mt-14 sm:pt-9">
+        <div className="mt-12 flex flex-col gap-3 border-t border-mkf-border/80 pt-8 sm:mt-14 sm:flex-row sm:items-center sm:justify-between sm:pt-9">
           <p className="text-xs text-mkf-muted sm:text-sm">
             © {year} {site.name}. All rights reserved.
+          </p>
+          <p className="text-xs text-mkf-muted sm:text-sm">
+            Website by{" "}
+            <a
+              href="https://www.jaramillohub.com/"
+              className="font-medium text-mkf-primary underline decoration-mkf-primary/30 underline-offset-2 transition hover:decoration-mkf-primary"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Javier Jaramillo
+            </a>
+            {" · "}
+            <a
+              href="https://www.jaramillohub.com/"
+              className="text-mkf-muted underline decoration-mkf-border underline-offset-2 transition hover:text-mkf-fg hover:decoration-mkf-primary/40"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              jaramillohub.com
+            </a>
           </p>
         </div>
       </Container>

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { HandCoins, Heart, Hospital, Shield } from "lucide-react";
+import { Clock, HandCoins, Heart, Hospital } from "lucide-react";
 import { FacilityGallery } from "@/components/facility/facility-gallery";
-import { DonateForm } from "@/components/forms/donate-form";
+// import { DonateForm } from "@/components/forms/donate-form";
 import { MichaelMemorialSection } from "@/components/memorial/michael-memorial";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
-import { getActiveGivebutter } from "@/lib/donate-config";
+// import { getActiveGivebutter } from "@/lib/donate-config";
 import { createMetadata } from "@/lib/metadata";
 import { fetchPublicGalleryItems } from "@/lib/public-gallery";
-import { site } from "@/lib/site";
 
 const glowPair = {
   a: "pointer-events-none absolute -right-5 -top-4 h-28 w-28 rounded-full bg-[color-mix(in_oklab,var(--mkf-gold)_16%,transparent)] opacity-50 blur-3xl",
@@ -18,17 +18,15 @@ const glowPair = {
 export const metadata: Metadata = createMetadata({
   title: "Donate",
   description:
-    "Support the Michael Kellermann Foundation with a one-time or monthly gift through our Givebutter checkout to strengthen recovery education, sobriety support, and community care.",
+    "Support the Michael Kellermann Foundation with a gift to strengthen recovery education, sobriety support, and community care. Online giving is coming soon.",
   path: "/donate",
 });
 
 export default async function DonatePage() {
-  const give = await getActiveGivebutter();
-  const { givebutterCampaignUrl } = site;
-  const givebutterUrl = give.givebutterUrl || givebutterCampaignUrl;
-  const galleryItems = await fetchPublicGalleryItems(
-    give.eventId ? { eventId: give.eventId } : undefined,
-  );
+  // const give = await getActiveGivebutter();
+  // const { givebutterCampaignUrl } = site;
+  // const givebutterUrl = give.givebutterUrl || givebutterCampaignUrl;
+  const galleryItems = await fetchPublicGalleryItems();
   const initialFacilityImages = galleryItems.map((g) => ({
     url: g.url,
     alt: g.alt,
@@ -48,60 +46,12 @@ export default async function DonatePage() {
       >
         <div className="grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-14">
           <div className="space-y-8">
-            <article
-              className="relative overflow-hidden rounded-2xl border border-mkf-border bg-mkf-surface p-7 shadow-[0_1px_0_rgba(15,23,42,0.05),0_8px_28px_-6px_rgba(12,44,64,0.1)] sm:p-8 dark:shadow-[0_1px_0_rgba(0,0,0,0.2),0_8px_32px_-6px_rgba(0,0,0,0.35)]"
-              aria-labelledby="donate-why-givebutter"
-            >
-              <div className={glowPair.a} aria-hidden />
-              <div className={glowPair.b} aria-hidden />
-              <div className="relative">
-                <div className="flex items-center gap-3">
-                  <span
-                    className="h-1 w-10 rounded-full bg-gradient-to-r from-mkf-teal via-mkf-gold to-mkf-accent sm:w-12"
-                    aria-hidden
-                  />
-                  <Heart
-                    className="h-4 w-4 text-mkf-gold sm:h-5 sm:w-5"
-                    strokeWidth={1.75}
-                    aria-hidden="true"
-                  />
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-mkf-teal">How we accept gifts</p>
-                </div>
-                <h2
-                  id="donate-why-givebutter"
-                  className="mt-4 flex items-center gap-2.5 font-display text-2xl font-semibold tracking-tight text-mkf-ink sm:text-3xl"
-                >
-                  <Shield
-                    className="h-6 w-6 shrink-0 text-mkf-teal sm:h-7 sm:w-7"
-                    strokeWidth={1.5}
-                    aria-hidden="true"
-                  />
-                  Secure checkout with Givebutter
-                </h2>
-                <p className="mt-4 text-base leading-relaxed text-mkf-muted sm:text-lg sm:leading-relaxed">
-                  MKF processes online donations through{" "}
-                  <a
-                    href="https://givebutter.com"
-                    className="font-medium text-mkf-primary underline decoration-mkf-primary/30 underline-offset-2 hover:decoration-mkf-primary"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Givebutter
-                  </a>
-                  , a platform built for fundraisers and mission-driven teams. You will complete your payment
-                  on Givebutter&rsquo;s secure, hosted page—not on this site—so we never see or store your card
-                  information here. Givebutter sends email receipts, and you can use options like Apple Pay
-                  and Google Pay when your campaign supports them.
-                </p>
-              </div>
-            </article>
-
             <div className="text-base leading-relaxed text-mkf-muted">
               <p>
                 Donations back MKF&rsquo;s work to train staff and volunteers, develop family-facing education and
                 support materials, and help community partners with planning and evaluation for recovery and sobriety
-                outcomes. As the
-                foundation grows, we aim to publish a simple, readable summary of how gifts translate into impact.
+                outcomes. As the foundation grows, we aim to publish a simple, readable summary of how gifts translate
+                into impact.
               </p>
             </div>
 
@@ -137,17 +87,36 @@ export default async function DonatePage() {
                 aria-hidden
               />
               <div className="relative p-6 sm:p-8">
-                <h3 className="font-display text-lg font-semibold text-mkf-ink sm:text-xl">Make your gift</h3>
-                <p className="mt-2 text-sm leading-relaxed text-mkf-muted">
-                  Choose an amount and how often you&rsquo;d like to help—then continue to Givebutter to pay
-                  securely. Fields below are a planning step only; the charge happens on Givebutter&rsquo;s
-                  site.
-                </p>
-                <div className="mt-6">
-                  <DonateForm givebutterUrl={givebutterUrl} eventLabel={give.eventTitle} />
+                <div className={glowPair.a} aria-hidden />
+                <div className={glowPair.b} aria-hidden />
+                <div className="relative text-center">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[color-mix(in_oklab,var(--mkf-gold)_18%,var(--mkf-bg))]">
+                    <Clock className="h-7 w-7 text-mkf-gold" strokeWidth={1.5} aria-hidden="true" />
+                  </div>
+                  <h3 className="mt-5 font-display text-xl font-semibold text-mkf-ink sm:text-2xl">
+                    Online giving coming soon
+                  </h3>
+                  <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-mkf-muted sm:text-base">
+                    We&rsquo;re setting up secure online donations. In the meantime, reach out and we&rsquo;ll help you
+                    support MKF another way.
+                  </p>
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                    <Button href="/contact" variant="primary" className="justify-center">
+                      <Heart className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+                      Contact us to give
+                    </Button>
+                    <Button href="/get-involved" variant="secondary" className="justify-center">
+                      Get involved
+                    </Button>
+                  </div>
                 </div>
               </div>
             </Card>
+
+            {/*
+            Givebutter checkout — restore when the live campaign is ready:
+            <DonateForm givebutterUrl={givebutterUrl} eventLabel={give.eventTitle} />
+            */}
           </div>
         </div>
       </Section>
@@ -208,7 +177,7 @@ export default async function DonatePage() {
           </Card>
         </div>
 
-        <FacilityGallery eventId={give.eventId} initialImages={initialFacilityImages} />
+        <FacilityGallery initialImages={initialFacilityImages} />
       </Section>
     </>
   );
